@@ -43,7 +43,6 @@ The system has **two roles**:
 - **Database**: MSSQL, Cosmos DB
 - **Authentication**: JWT (JSON Web Token)
 - **Logging**: Serilog
-- **Cloud Services**: Azure Service Bus
 - **Tools**: Visual Studio 2022, Postman, SQL Server Management Studio (SSMS)
 
 ### 🔹 Frontend (UI)
@@ -51,13 +50,7 @@ The system has **two roles**:
 - **Languages**: TypeScript, HTML, CSS
 - **State Management**: RxJS
 - **UI Components**: Angular Material
-- **Tools**: VS Code, Node.js, NPM
+- **Tools**: VS Code,NPM
 
 ---
 
-## 🔧 **Installation & Setup**
-
-### 1️⃣ **Clone the Repository**
-```sh
-git clone https://github.com/your-username/ContainerBookingSystem.git
-cd ContainerBookingSystem
