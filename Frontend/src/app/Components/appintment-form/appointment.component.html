@@ -1,0 +1,165 @@
+<app-navbar></app-navbar>
+<div>
+  <h2>Appointment Booking</h2>
+  <form [formGroup]="appointmentForm">
+    <!-- Step 1: Basic Info -->
+    <div *ngIf="step === 1">
+      <h2>Step 1: Add Required Data</h2>
+
+      <label for="truckingCompanyId">Trucking Company: <span class="required">*</span></label>
+      <select id="truckingCompanyId" formControlName="truckingCompanyId" required>
+        <option value="">Select a company</option>
+        <option *ngFor="let company of truckingCompanies" [value]="company.id">{{ company.name }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('truckingCompanyId')?.invalid && appointmentForm.get('truckingCompanyId')?.touched">
+        <small class="error">Trucking Company is required.</small>
+      </div>
+
+      <label for="containerId">Container: <span class="required">*</span></label>
+      <select id="containerId" formControlName="containerId" required>
+        <option value="">Select a container</option>
+        <option *ngFor="let container of containers" [value]="container.id">{{ container.containerNumber }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('containerId')?.invalid && appointmentForm.get('containerId')?.touched">
+        <small class="error">Container is required.</small>
+      </div>
+
+      <label for="terminalId">Terminal: <span class="required">*</span></label>
+      <select id="terminalId" formControlName="terminalId" required>
+        <option value="">Select a terminal</option>
+        <option *ngFor="let terminal of terminals" [value]="terminal.id">{{ terminal.terminalName }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('terminalId')?.invalid && appointmentForm.get('terminalId')?.touched">
+        <small class="error">Terminal is required.</small>
+      </div>
+
+      <label for="moveType">Move Type: <span class="required">*</span></label>
+      <select id="moveType" formControlName="moveType" required>
+        <option value="">Select move type</option>
+        <option value="Pick Full">Pick Full</option>
+        <option value="Pick Empty">Pick Empty</option>
+        <option value="Drop Full">Drop Full</option>
+        <option value="Drop Empty">Drop Empty</option>
+      </select>
+      <div *ngIf="appointmentForm.get('moveType')?.invalid && appointmentForm.get('moveType')?.touched">
+        <small class="error">Move Type is required.</small>
+      </div>
+
+      <label for="port">Port: <span class="required">*</span></label>
+      <select id="port" formControlName="port" required>
+        <option value="">Select a port</option>
+        <option *ngFor="let port of portNumbers" [value]="port">{{ port }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('port')?.invalid && appointmentForm.get('port')?.touched">
+        <small class="error">Port is required.</small>
+      </div>
+      <button type="button" (click)="goBack()">Back</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <!-- Step 2: Add Move Details -->
+    <div *ngIf="step === 2">
+      <h2>Step 2: Add Move Details</h2>
+
+      <label for="unitNumber">Unit Number <span class="required">*</span></label>
+      <input type="text" id="unitNumber" formControlName="unitNumber" required />
+      <div *ngIf="appointmentForm.get('unitNumber')?.invalid && appointmentForm.get('unitNumber')?.touched">
+        <small class="error">Unit Number is required.</small>
+      </div>
+
+      <label for="equipSize">Equipment Size <span class="required">*</span></label>
+      <input type="text" id="equipSize" formControlName="equipSize" required />
+      <div *ngIf="appointmentForm.get('equipSize')?.invalid && appointmentForm.get('equipSize')?.touched">
+        <small class="error">Equipment Size is required.</small>
+      </div>
+
+      <label for="hasChassisNumber">
+        <input type="checkbox" id="hasChassisNumber" formControlName="hasChassisNumber" (change)="toggleChassisNumber()" />
+        I have a chassis number
+      </label>
+      <div *ngIf="appointmentForm.get('hasChassisNumber')?.value">
+        <label for="chassisNumber">Chassis Number <span class="required">*</span></label>
+        <input type="text" id="chassisNumber" formControlName="chassisNumber" required />
+        <div *ngIf="appointmentForm.get('chassisNumber')?.invalid && appointmentForm.get('chassisNumber')?.touched">
+          <small class="error">Chassis Number is required.</small>
+        </div>
+      </div>
+
+      <label for="driverId">Driver: <span class="required">*</span></label>
+      <select id="driverId" formControlName="driverId" (change)="onDriverChange($event)" required>
+        <option value="">Select a driver</option>
+        <option *ngFor="let driver of drivers" [value]="driver.id">{{ driver.driverMobileNumber }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('driverId')?.invalid && appointmentForm.get('driverId')?.touched">
+        <small class="error">Driver is required.</small>
+      </div>
+
+      <label for="shipId">Ship Number: <span class="required">*</span></label>
+      <select id="shipId" formControlName="shipId" required>
+        <option value="">Select a ship</option>
+        <option *ngFor="let ship of ships" [value]="ship.id">{{ ship.shipNumber }}</option>
+      </select>
+      <div *ngIf="appointmentForm.get('shipId')?.invalid && appointmentForm.get('shipId')?.touched">
+        <small class="error">Ship Number is required.</small>
+      </div>
+
+      <label for="licenceNumber">License Number:</label>
+      <input type="text" id="licenceNumber" formControlName="licenceNumber" readonly />
+
+      <label for="truckPlate">Truck Plate:</label>
+      <input type="text" id="truckPlate" formControlName="truckPlate" readonly />
+
+      <button type="button" (click)="previousStep()">Back</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <!-- Step 3: Appointment Date and Time -->
+    <div *ngIf="step === 3">
+      <h2>Step 3: Choose Appointment Date & Time</h2>
+      <label for="appointmentDate">Appointment Date and Time: <span class="required">*</span></label>
+      <input type="datetime-local" id="appointmentDate" formControlName="appointmentDate" required />
+      <div *ngIf="appointmentForm.get('appointmentDate')?.invalid && appointmentForm.get('appointmentDate')?.touched">
+        <small class="error">Appointment Date and Time is required.</small>
+      </div>
+
+      <button type="button" (click)="previousStep()">Back</button>
+      <button type="button" (click)="nextStep()">Next</button>
+    </div>
+
+    <!-- Step 4: Confirmation -->
+    <div *ngIf="step === 4">
+      <h3>Appointment Confirmation</h3>
+      <p>Trucking Company ID: {{ appointmentForm.get('truckingCompanyId')?.value }}</p>
+      <p>Terminal ID: {{ appointmentForm.get('terminalId')?.value }}</p>
+      <p>Move Type: {{ appointmentForm.get('moveType')?.value }}</p>
+      <p>Container ID: {{ appointmentForm.get('containerId')?.value }}</p>
+      <p>Port: {{ appointmentForm.get('port')?.value }}</p>
+      <p>Unit Number: {{ appointmentForm.get('unitNumber')?.value }}</p>
+      <p>Equipment Size: {{ appointmentForm.get('equipSize')?.value }}</p>
+      <p>Chassis Number: {{ appointmentForm.get('chassisNumber')?.value }}</p>
+      <p>Truck Plate: {{ appointmentForm.get('truckPlate')?.value }}</p>
+      <p>Driver ID: {{ appointmentForm.get('driverId')?.value }}</p>
+      <p>License Number: {{ appointmentForm.get('licenceNumber')?.value }}</p>
+      <p>Appointment Date: {{ appointmentForm.get('appointmentDate')?.value }}</p>
+      <p>Driver Mobile Number: {{ appointmentForm.get('driverMobileNumber')?.value }}</p>
+      <p>Ticket Number: {{ ticketNumber }}</p>
+      <p>Ship ID: {{ appointmentForm.get('shipId')?.value }}</p>
+
+      <div>
+        <input type="checkbox" id="confirm" (change)="toggleConfirmation()" />
+        <label for="confirm">Confirm Appointment</label>
+      </div>
+
+      <button type="button" (click)="previousStep()">Back</button>
+      <button type="button" [disabled]="!confirmationChecked" (click)="submitAppointment()">Submit</button>
+    </div>
+
+    <!-- Step 5: Completion -->
+    <div *ngIf="step === 5">
+      <h2>Appointment Successfully Booked!</h2>
+      <p>Your appointment has been successfully booked with the following details:</p>
+      <p>Ticket Number: {{ ticketNumber }}</p>
+      <button type="button" (click)="resetForm()">Start Over</button>
+    </div>
+  </form>
+</div>

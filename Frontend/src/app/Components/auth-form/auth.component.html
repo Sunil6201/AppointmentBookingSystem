@@ -1,0 +1,34 @@
+<div>
+  
+  
+
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+      <!-- Logo Section -->
+      <h2 *ngIf="showLogin">Login</h2>
+      <h2 *ngIf="!showLogin">Register</h2>
+      <div class="logo-container">
+        <img src="https://www.adventemodal.com/uploads/1/3/4/4/134437915/published/advent-emodal-horizontal-color_2.png" alt="Logo" class="logo">
+      </div>
+
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required>
+      </div>
+      <div>
+        <label for="role">Role:</label>
+        <select id="role" [(ngModel)]="role" name="role" required>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+      </div>
+      <button type="submit">{{ showLogin ? 'Login' : 'Register' }}</button>
+      <div *ngIf="errorMessage">{{ errorMessage }}</div>
+      <p (click)="toggleForm()" style="cursor:pointer;">
+        {{ showLogin ? 'Don\'t have an account? Register here.' : 'Already have an account? Login here.' }}
+      </p>
+  </form>
+</div>

@@ -1,0 +1,89 @@
+/* booking.component.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    color: #fff; /* Default text color for better visibility */
+}
+
+.form-step {
+    background: rgba(10, 10, 50, 0.8); /* Dark blue semi-transparent background for form steps */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 600px; /* Max width for form steps */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Enhanced box shadow for depth */
+}
+
+h2 {
+    color: #1e90ff; /* Light blue color for headings */
+    text-align: center; /* Center align heading */
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: #fff; /* White color for labels */
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #1e90ff; /* Light blue border */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for inputs */
+    color: #000; /* Black text for inputs */
+}
+
+input:focus, select:focus {
+    border-color: #00bfff; /* Brighter light blue for focused input border */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    background-color: #1e90ff; /* Light blue button background color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for button hover */
+}
+
+button:disabled {
+    background-color: #ccc; /* Disabled button color */
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #00bfff; /* Brighter blue for button hover color */
+}
+
+/* Optional: Add some additional styling for the checkbox label */
+label > input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+/* Add this to the existing CSS to ensure Step 4 text is white */
+.confirmation-text {
+    color: #fff; /* White color for confirmation text */
+    margin: 10px 0; /* Add some margin for spacing */
+    font-size: 1.1em; /* Slightly larger font size for emphasis */
+}
+
+/* Mobile responsiveness for the form steps */
+@media (max-width: 768px) {
+    .form-step {
+        padding: 15px;
+        margin: 10px auto;
+        width: 90%; /* Full width on mobile */
+    }
+}
+
+.required {
+    color: red; /* Change color to red */
+    font-weight: bold; /* Optional: Make it bold */
+    margin-left: 5px; /* Space between label and asterisk */
+}

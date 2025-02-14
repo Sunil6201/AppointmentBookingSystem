@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<div class="terminal-management">
+  <h2>Terminal Management</h2>
+
+  <h3>Terminal List</h3>
+  <div class="table-container">
+    <table class="terminal-table">
+      <thead>
+        <tr>
+          <th>Terminal Name</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let terminal of filteredTerminals">
+          <td>{{ terminal.terminalName }}</td>
+          <td>{{ terminal.location }}</td>
+          <td class="action-buttons">
+            <div class="dropdown">
+              <button (click)="toggleActions(terminal)" class="dropdown-button">Actions</button>
+              <div *ngIf="isActionsVisible(terminal)" class="actions-dropdown">
+                <button (click)="openModal('update', terminal)" class="update-button">Update</button>
+                <button (click)="softDeleteTerminal(terminal.id)" class="soft-delete-button">Delete</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Back and Create Buttons (now below the table, aligned left) -->
+  <div class="button-container">
+    <button (click)="goBack()" class="back-button">Back</button>
+    <button (click)="openModal('create')" class="create-button">Create Terminal</button>
+  </div>
+
+  <!-- Modal for Create/Update Terminal -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ isEditing ? 'Update Terminal' : 'Create Terminal' }}</h2>
+      <form (ngSubmit)="onSubmit()" #terminalForm="ngForm" class="terminal-form">
+        <div class="form-group">
+          <label for="terminalName">Terminal Name:</label>
+          <input
+            id="terminalName"
+            type="text"
+            [(ngModel)]="terminal.terminalName"
+            name="terminalName" 
+            placeholder="Enter terminal name"
+            required
+            pattern="[a-zA-Z\s]*"
+          />
+          <div *ngIf="terminalForm.controls['terminalName']?.invalid && terminalForm.controls['terminalName']?.touched">
+            <div *ngIf="terminalForm.controls['terminalName']?.errors?.['required']" class="error-message">
+              Terminal name is required.
+            </div>
+            <div *ngIf="terminalForm.controls['terminalName']?.errors?.['pattern']" class="error-message">
+              Terminal name cannot contain digits. Only letters are allowed.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location:</label>
+          <select
+            id="location"
+            [(ngModel)]="terminal.location"
+            name="location"
+            required
+            class="form-control"
+          >
+            <option value="" disabled>Select location</option>
+            <option>Shanghai, China</option>
+            <option>Singapore, Singapore</option>
+            <option>Rotterdam, Netherlands</option>
+            <option>Los Angeles, USA</option>
+            <option>Antwerp, Belgium</option>
+            <option>Hamburg, Germany</option>
+            <option>Busan, South Korea</option>
+            <option>Hong Kong, China</option>
+            <option>Dubai, UAE</option>
+            <option>Long Beach, USA</option>
+            <option>Tianjin, China</option>
+            <option>Ningbo, China</option>
+            <option>New York, USA</option>
+            <option>Kaohsiung, Taiwan</option>
+            <option>Guangzhou, China</option>
+            <option>Algeciras, Spain</option>
+          </select>
+          <div *ngIf="terminalForm.controls['location']?.invalid && terminalForm.controls['location']?.touched" class="error-message">
+            Location is required.
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" [disabled]="terminalForm.invalid" class="submit-button">
+            {{ isEditing ? 'Update' : 'Create' }} Terminal
+          </button>
+          <button type="button" (click)="closeModal()" class="close-button">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

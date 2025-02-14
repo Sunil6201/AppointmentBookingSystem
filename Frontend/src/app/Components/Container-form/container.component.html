@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<!-- Container management section -->
+<div class="container-management page-content">
+    <h2>Container Management</h2>
+
+    <!-- List of containers in a table -->
+    <h3>Container List</h3>
+    <div class="table-container">
+        <table class="container-table">
+            <thead>
+                <tr>
+                    <th>Container Number</th>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Status</th> <!-- New Status Column -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let container of containers">
+                    <td>{{ container.containerNumber }}</td>
+                    <td>{{ container.type }}</td>
+                    <td>{{ container.size }}</td>
+                    <td>{{ getStatusDisplay(container.status) }}</td> <!-- Status Display -->
+                    <td class="action-buttons">
+                        <!-- Dropdown button for actions -->
+                        <div class="dropdown">
+                            <button (click)="toggleActions(container)" class="dropdown-button">
+                                Actions
+                            </button>
+                            <div *ngIf="isActionsVisible(container)" class="actions-dropdown">
+                                <button (click)="openModal('update', container)" class="update-button">Update</button>
+                                <button (click)="softDeleteContainer(container.id)" class="delete-button">Delete</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button to go back and button to open the modal for creating a new container -->
+    <div class="button-container">
+        <button (click)="goBack()" class="back-button">Back</button>
+        <button (click)="openModal('create')" class="create-button">
+            Create Container
+        </button>
+    </div>
+
+    <!-- Modal for Create/Update Container -->
+    <div *ngIf="isModalOpen" class="modal-overlay">
+        <div class="modal-content">
+            <h2>{{ isEditing ? 'Update Container' : 'Create Container' }}</h2>
+            <form (ngSubmit)="onSubmit()" #containerForm="ngForm" class="container-form">
+                <div class="form-group">
+                    <label for="containerNumber">Container Number:</label>
+                    <input 
+                        type="text" 
+                        id="containerNumber" 
+                        [(ngModel)]="newContainer.containerNumber" 
+                        name="containerNumber" 
+                        required 
+                        pattern="[A-Za-z0-9]{7}"  
+                        class="form-control"
+                        placeholder="Enter container number"
+                    >
+                    <div *ngIf="containerForm.controls['containerNumber']?.invalid && containerForm.controls['containerNumber']?.touched" class="error-message">
+                        Container number must be 7 characters long (letters and numbers only).
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <select 
+                        id="type" 
+                        [(ngModel)]="newContainer.type" 
+                        name="type" 
+                        required 
+                        class="form-control">
+                        <option value="" disabled selected>Select container type</option>
+                        <option *ngFor="let type of containerTypes" [value]="type">{{ type }}</option>
+                    </select>
+                    <div *ngIf="containerForm.controls['type']?.invalid && containerForm.controls['type']?.touched" class="error-message">
+                        Type is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="size">Size:</label>
+                    <select 
+                        id="size" 
+                        [(ngModel)]="newContainer.size" 
+                        name="size" 
+                        required 
+                        class="form-control">
+                        <option value="" disabled selected>Select container size</option>
+                        <option *ngFor="let size of containerSizes" [value]="size">{{ size }}</option>
+                    </select>
+                    <div *ngIf="containerForm.controls['size']?.invalid && containerForm.controls['size']?.touched" class="error-message">
+                        Size is required.
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" (click)="closeModal()" class="cancel-button">Cancel</button>
+                    <button type="submit" [disabled]="containerForm.invalid" class="submit-button">
+                        {{ isEditing ? 'Update' : 'Create' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

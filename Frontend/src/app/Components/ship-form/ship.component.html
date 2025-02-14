@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+<!-- Ship Management Section -->
+<div class="ship-management">
+  <h2>Ship Management</h2>
+
+  <!-- Search Input Field -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (input)="filterShips()" 
+      placeholder="Search ships..." 
+      class="search-input" 
+    />
+  </div>
+
+  <!-- List of ships in a table -->
+  <h3>Ship List</h3>
+  <div class="table-container">
+    <table class="ship-table">
+      <thead>
+        <tr>
+          <th>Ship Number</th>
+          <th>Time Slot (hh:mm:ss)</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ship of filteredShips">
+          <td>{{ ship.shipNumber }}</td>
+          <td>{{ ship.timeSlot }}</td>
+          <td>{{ getStatusDisplay(ship.status) }}</td>
+          <td class="action-buttons">
+            <div class="dropdown">
+              <button (click)="toggleActions(ship)" class="dropdown-button">Actions</button>
+              <div *ngIf="isActionsVisible(ship)" class="actions-dropdown">
+                <button (click)="openModal('update', ship)" class="update-button">Update</button>
+                <button (click)="softDeleteShip(ship.id)" class="soft-delete-button">Soft Delete</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button Container for Create and Back -->
+  <div class="button-container">
+    <button (click)="goBack()" class="back-button">Back</button>
+    <button (click)="openModal('create')" class="create-button">Create</button>
+  </div>
+
+  <!-- Modal for Create/Update Ship -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ isEditing ? 'Update Ship' : 'Create Ship' }}</h2>
+      <form (ngSubmit)="onSubmit()" #shipForm="ngForm" class="ship-form">
+        <div class="form-group">
+          <label for="shipNumber">Ship Number:</label>
+          <input 
+            type="text" 
+            id="shipNumber" 
+            [(ngModel)]="ship.shipNumber"
+            name="shipNumber" 
+            required 
+            class="form-control" 
+            placeholder="Enter ship number" 
+          />
+          <div *ngIf="shipForm.controls['shipNumber']?.invalid && shipForm.controls['shipNumber']?.touched" class="error-message">
+            Ship number is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="timeSlot">Time Slot (hh:mm:ss):</label>
+          <input 
+            type="text" 
+            id="timeSlot" 
+            [(ngModel)]="ship.timeSlot" 
+            name="timeSlot" 
+            required 
+            class="form-control" 
+            placeholder="Enter time slot (hh:mm:ss)" 
+            pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" 
+          />
+          <div *ngIf="shipForm.controls['timeSlot']?.invalid && shipForm.controls['timeSlot']?.touched" class="error-message">
+            Time slot is required in hh:mm:ss format.
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="shipForm.invalid" class="submit-button">
+          {{ isEditing ? 'Update' : 'Create' }} Ship
+        </button>
+        <button type="button" (click)="closeModal()" class="close-button">Close</button>
+      </form>
+    </div>
+  </div>
+</div>

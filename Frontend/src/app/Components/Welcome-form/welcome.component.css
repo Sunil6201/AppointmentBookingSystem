@@ -1,0 +1,256 @@
+/* src/app/Components/Welcome-form/welcome.component.css */
+
+/* Ensure the navbar takes the full width and is fixed at the top */
+.navbar {
+  width: 100%; /* Full width */
+  background-color: #eff1f4; /* Light background color for navbar */
+  position: fixed; /* Fixed at the top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Keep above other content */
+}
+
+/* Fullscreen background container */
+.welcome-background {
+  position: relative;
+  height: 100vh; /* Full height of the viewport */
+  width: 100%;
+  background: url('https://www.adventemodal.com/uploads/1/3/4/4/134437915/background-images/456446433.jpg') no-repeat center center / cover; /* Corrected image link */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay to darken the background */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+}
+
+/* Title styling */
+.welcome-title {
+  color: white;
+  font-size: 70px; /* Increased font size */
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative; /* Ensure positioning relative to the overlay */
+  z-index: 10; /* Position above the large port text */
+  font-family: 'Roboto', sans-serif; /* Apply Google Font */
+}
+
+/* Centered image container */
+.centered-image-container {
+  text-align: center; /* Center the image and text */
+}
+
+/* Centered image styling */
+.centered-image {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+/* Text below the image */
+.image-text {
+  color: white; /* Text color */
+  text-align: center; /* Center the text */
+}
+
+/* Fade-in text styling */
+.fade-in-text {
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Slightly move down */
+  animation: fadeIn 0.5s forwards; /* Apply animation */
+  font-family: 'Roboto', sans-serif; /* Apply Google Font */
+  font-weight: bold; /* Make it bold */
+  font-size: 60px; /* Increased size for the heading */
+  margin: 0; /* Remove default margin */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add shadow for visibility */
+}
+
+/* Animation for fade-in effect */
+@keyframes fadeIn {
+  to {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Move back to original position */
+  }
+}
+
+/* Fade-in delay for each line */
+.fade-in-text:nth-child(1) {
+  animation-delay: 0.5s; /* First line appears after 0.5s */
+}
+
+.fade-in-text:nth-child(2) {
+  animation-delay: 1s; /* Second line appears after 1s */
+}
+
+/* New large port text styling */
+.large-port-text {
+  color: rgba(255, 255, 255, 0.1); /* Light white with transparency */
+  font-size: 180px; /* Increased large font size */
+  font-weight: bold;
+  position: absolute; /* Position absolutely within the background */
+  bottom: 35%; /* Adjust this to place it lower */
+  right: 10%; /* Adjust this for horizontal positioning */
+  z-index: 5; /* Place behind the title text */
+  transform: translateY(50%); /* Adjust vertical alignment */
+}
+
+/* Statistics Section */
+.stats-container {
+  display: flex;
+  justify-content: center; /* Center the statistics */
+  margin: 50px 0; /* Margin for spacing */
+  flex-wrap: wrap; /* Wrap to the next line on smaller screens */
+}
+
+.stat-item {
+  flex: 1; /* Make items flexible */
+  margin: 20px; /* Margin around each item */
+  text-align: center; /* Center the text */
+}
+
+/* New stat value container */
+.stat-value-container {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+  justify-content: center; /* Center items horizontally */
+}
+
+/* Plus icon styling */
+.plus-icon {
+  font-size: 24px; /* Size of the plus icon */
+  color: #ff0000; /* Color of the plus icon */
+  margin-right: 5px; /* Space between icon and digit */
+}
+
+.stat-value {
+  font-size: 48px; /* Size for the stat value */
+  color: #ff0000; /* Red color for visibility */
+  font-weight: bold; /* Bold font */
+  transition: all 0.3s; /* Smooth transition for animations */
+  animation: countUp 7s forwards; /* Animation to count up in 7 seconds */
+}
+
+.stat-label {
+  font-size: 22px; /* Smaller label font */
+  color: #333; /* Darker color for contrast */
+}
+
+.stat-value:hover {
+  transform: scale(1.2); /* Scale effect on hover */
+}
+
+/* Keyframes for counting up effect */
+@keyframes countUp {
+  from {
+    counter-reset: value 0; /* Start counting from 0 */
+  }
+  to {
+    counter-reset: value attr(data-target); /* End at the target value */
+  }
+}
+
+/* Ensure the main content doesn't overlap with the navbar */
+.main-content {
+  margin-top: 70px; /* Push content below navbar */
+  padding: 20px; /* Add padding for readability */
+}
+
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 50px; /* Adjusted font size for mobile */
+  }
+
+  .image-text h1 {
+    font-size: 32px; /* Adjust heading size for mobile */
+  }
+
+  .large-port-text {
+    font-size: 100px; /* Adjusted size for mobile */
+  }
+
+  .stat-value {
+    font-size: 36px; /* Adjusted size for mobile */
+  }
+
+  .stat-label {
+    font-size: 16px; /* Adjusted label size for mobile */
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar {
+    width: 100%; /* Full width for tablets */
+  }
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    font-size: 17px; /* Adjust font size for tablets */
+  }
+}
+
+/* Adjustments for Logo */
+.logo {
+  width: 190px; /* Set logo size */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure it doesn't exceed container width */
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 150px; /* Smaller logo for mobile */
+  }
+}
+
+
+/* src/app/Components/Welcome-form/welcome.component.css */
+
+/* New Learn More Container */
+.learn-more-container {
+  text-align: center; /* Center text */
+  margin: 20px 0; /* Margin for spacing */
+}
+
+/* Title styling for Learn More */
+.learn-more-title {
+  font-size: 28px; /* Adjust size as needed */
+  color: black; /* Changed color to black */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+/* Link styling for Learn More */
+.learn-more-link {
+  font-size: 20px; /* Adjust size for the link */
+  color: black; /* Changed link color to black */
+  text-decoration: underline; /* Underline for a link effect */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Button styling */
+.learn-more-button {
+  background-color: #ff0000; /* Initial button color (Bootstrap primary) */
+  color: white; /* Button text color */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Padding for button */
+  font-size: 18px; /* Font size for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  width: 150px;
+}
+
+/* Button hover effect */
+.learn-more-button:hover {
+  background-color: rgb(0, 149, 255); /* Change button color to red on hover */
+}

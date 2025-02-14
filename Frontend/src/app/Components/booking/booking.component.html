@@ -1,0 +1,116 @@
+<!-- Step 1: Add Required Data -->
+<div *ngIf="step === 1" class="form-step">
+    <h2>Step 1: Add Required Data</h2>
+    <label for="truckingCompany">Trucking Company <span class="required">*</span></label>
+    <select id="truckingCompany" [(ngModel)]="requiredData.truckingCompany" required>
+        <option value="" disabled>Select a company</option>
+        <option *ngFor="let company of truckingCompanies" [value]="company">{{ company }}</option>
+    </select>
+
+    <label for="terminal">Terminal <span class="required">*</span></label>
+    <select id="terminal" [(ngModel)]="requiredData.terminal" required>
+        <option value="" disabled>Select a terminal</option>
+        <option *ngFor="let terminal of terminals" [value]="terminal.terminalName">{{ terminal.terminalName || 'Unnamed Terminal' }}</option>
+    </select>
+
+    <label for="moveType">Move Type <span class="required">*</span></label>
+    <select id="moveType" [(ngModel)]="requiredData.moveType" required>
+        <option value="" disabled>Select move type</option>
+        <option *ngFor="let moveType of moveTypeOptions" [value]="moveType">{{ moveType }}</option>
+    </select>
+
+    <label for="containerNumber">Container Number <span class="required">*</span></label>
+    <select id="containerNumber" [(ngModel)]="requiredData.containerNumber" required>
+        <option value="" disabled>Select a container</option>
+        <option *ngFor="let container of containerNumbers" [value]="container.containerNumber">{{ container.containerNumber }}</option>
+    </select>
+
+    <button (click)="nextStep()" [disabled]="!validateStepData()">Next</button>
+</div>
+
+<!-- Step 2: Add Move Details -->
+<div *ngIf="step === 2" class="form-step">
+    <h2>Step 2: Add Move Details</h2>
+    <label for="unitNumber">Unit Number <span class="required">*</span></label>
+    <input type="text" id="unitNumber" [(ngModel)]="moveDetails.unitNumber" required />
+
+    <label for="equipSize">Equipment Size <span class="required">*</span></label>
+    <input type="text" id="equipSize" [(ngModel)]="moveDetails.equipSize" required />
+
+    <label for="hasChassisNumber">
+        <input type="checkbox" id="hasChassisNumber" [(ngModel)]="moveDetails.hasChassisNumber" />
+        I have a chassis number
+    </label>
+
+    <div *ngIf="moveDetails.hasChassisNumber">
+        <label for="chassisNumber">Chassis Number <span class="required">*</span></label>
+        <input type="text" id="chassisNumber" [(ngModel)]="moveDetails.chassisNumber" required />
+    </div>
+
+    <label for="truckPlate">Truck Plate <span class="required">*</span></label>
+    <select id="truckPlate" [(ngModel)]="moveDetails.truckPlate" required>
+        <option value="" disabled selected>Select a truck plate</option>
+        <option *ngFor="let vehicle of vehicleNumbers" [value]="vehicle">{{ vehicle }}</option>
+    </select>
+
+    <label for="driver">Driver <span class="required">*</span></label>
+    <select id="driver" [(ngModel)]="moveDetails.driverId" required>
+        <option value="" disabled selected>Select a driver</option>
+        <option *ngFor="let driver of drivers" [value]="driver.id">{{ driver.driverMobileNumber }}</option>
+    </select>
+
+    <button (click)="previousStep()">Back</button>
+    <button (click)="nextStep()" [disabled]="!validateStepData()">Next</button>
+</div>
+
+<!-- Step 3: Choose Appointment Time -->
+<div *ngIf="step === 3" class="form-step">
+    <h2>Step 3: Choose Appointment Time</h2>
+    <label for="appointmentDate">Appointment Date <span class="required">*</span></label>
+    <input type="date" id="appointmentDate" [(ngModel)]="AppointmentDate .date" required />
+
+    <label for="AppointmentDate ">Appointment Time <span class="required">*</span></label>
+    <input type="time" id="AppointmentDate " [(ngModel)]="AppointmentDate .time" required />
+
+    <button (click)="previousStep()">Back</button>
+    <button (click)="nextStep()" [disabled]="!validateStepData()">Next</button>
+</div>
+
+<!-- Step 4: Confirmation -->
+<div *ngIf="step === 4" class="form-step">
+    <h2>Step 4: Confirmation</h2>
+    <p>Please confirm your details before booking:</p>
+
+    <h3>Details:</h3>
+    <p>Trucking Company: {{ requiredData.truckingCompany }}</p>
+    <p>Terminal: {{ requiredData.terminal }}</p>
+    <p>Move Type: {{ requiredData.moveType }}</p>
+    <p>Container Number: {{ requiredData.containerNumber }}</p>
+    <p>Unit Number: {{ moveDetails.unitNumber }}</p>
+    <p>Equipment Size: {{ moveDetails.equipSize }}</p>
+    <p *ngIf="moveDetails.hasChassisNumber">Chassis Number: {{ moveDetails.chassisNumber }}</p>
+    <p>Truck Plate: {{ moveDetails.truckPlate }}</p>
+    <p>Driver Number: {{ getDriverNumber(moveDetails.driverId) }}</p>
+    <p>Appointment Date: {{ AppointmentDate .date }}</p>
+    <p>Appointment Time: {{ AppointmentDate .time }}</p>
+
+    <label>
+        <input type="checkbox" [(ngModel)]="confirmationChecked" (change)="onConfirmationChange()" />
+        Confirm details
+    </label>
+
+    <div *ngIf="!confirmationChecked" class="error-message">You must confirm your details before proceeding.</div>
+
+    <button *ngIf="confirmationChecked" (click)="goToStep5()">Confirm</button>
+    <button (click)="previousStep()">Back</button>
+</div>
+
+<!-- Step 5: Confirmation Message -->
+<div *ngIf="step === 5" class="form-step">
+    <h2>Appointment Booked!</h2>
+    <p>Your appointment has been booked successfully!</p>
+    <p>Your ticket number is: <strong>{{ ticketNumber }}</strong></p>
+    <p>Your username is: <strong>{{ username }}</strong></p>
+    <button (click)="resetForm()">Start Over</button>
+</div>
+    

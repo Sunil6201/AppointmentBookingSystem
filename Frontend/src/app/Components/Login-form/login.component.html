@@ -1,0 +1,23 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form class="custom-login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="custom-login-input-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="username" name="username" required>
+    </div>
+    <div class="custom-login-input-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <div class="custom-login-input-group">
+      <label for="role">Role:</label>
+      <select id="role" [(ngModel)]="role" name="role" required>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+    </div>
+    <button type="submit" class="custom-login-button">Login</button>
+    <div *ngIf="message" class="custom-login-message">{{ message }}</div> <!-- Display success or error message -->
+    <p>Don't have an account? <a routerLink="/register" class="custom-login-register-link">Register here</a></p>
+  </form>
+</div>

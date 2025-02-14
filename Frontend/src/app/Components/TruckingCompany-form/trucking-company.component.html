@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+<!-- Trucking Company Management Section -->
+<div class="trucking-company-management">
+  <h2>Trucking Company Management</h2>
+
+  <!-- List of trucking companies in a table -->
+  <h3>Trucking Company List</h3>
+  <div class="table-container">
+    <table class="trucking-company-table">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Drop Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.dropType }}</td>
+          <td class="action-buttons">
+            <!-- Dropdown button for actions -->
+            <div class="dropdown">
+              <button (click)="toggleActions(company)" class="dropdown-button">
+                Actions
+              </button>
+              <div *ngIf="isActionsVisible(company)" class="actions-dropdown">
+                <button (click)="openModal('update', company)" class="update-button">Update</button>
+                <button (click)="deleteCompany(company.id)" class="delete-button">Delete</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button Container -->
+  <div class="button-container">
+    <button (click)="goBack()" class="back-button">Back</button>
+    <button (click)="openModal('create')" class="create-button">Create Trucking Company</button>
+  </div>
+
+  <!-- Modal for Create/Update Trucking Company -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ isEditing ? 'Update Company' : 'Create Company' }}</h2>
+      <form (ngSubmit)="onSubmit()" #companyForm="ngForm" class="trucking-company-form">
+        <div class="form-group">
+          <label for="name">Company Name:</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="company.name"
+            name="name"
+            required
+            class="form-control"
+            placeholder="Enter company name"
+            pattern="[A-Za-z ]*"
+          />
+          <div *ngIf="companyForm.controls['name']?.invalid && companyForm.controls['name']?.touched" class="error-message">
+            Company name is required and must only contain alphabetic characters.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dropType">Drop Type:</label>
+          <select id="dropType" [(ngModel)]="company.dropType" name="dropType" required class="form-control">
+            <option value="" disabled>Select drop type</option>
+            <option value="Pick Full">Pick Full</option>
+            <option value="Pick Empty">Pick Empty</option>
+            <option value="Drop Full">Drop Full</option>
+            <option value="Drop Empty">Drop Empty</option>
+          </select>
+          <div *ngIf="companyForm.controls['dropType']?.invalid && companyForm.controls['dropType']?.touched" class="error-message">
+            Drop type is required.
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="companyForm.invalid" class="submit-button">
+          {{ isEditing ? 'Update' : 'Create' }} Company
+        </button>
+        <button type="button" (click)="closeModal()" class="close-button">Close</button>
+      </form>
+    </div>
+  </div>
+</div>

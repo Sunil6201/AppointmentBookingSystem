@@ -1,0 +1,104 @@
+<h2>Your Appointments</h2>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!isLoading && errorMessage">{{ errorMessage }}</div>
+<div *ngIf="!isLoading && !errorMessage" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Appointment Date</th>
+        <th>Port</th>
+        <th>Trucking Company</th>
+        <th>Vehicle Number</th>
+        <th>Container Number</th>
+        <th>Terminal Name</th>
+        <th>Ship Number</th>
+        <th>Status</th>
+        <th>Appointment Status</th>
+        <th>Ticket Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of paginatedAppointments">
+        <td>{{ appointment.userId }}</td>
+        <td>{{ appointment.appointmentDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+        <td>{{ appointment.port }}</td>
+        <td>{{ appointment.truckingCompany?.name }}</td>
+        <td>{{ appointment.driver?.vehicleNumber }}</td>
+        <td>{{ appointment.container?.containerNumber }}</td>
+        <td>{{ appointment.terminalName }}</td>
+        <td>{{ appointment.ship?.shipNumber }}</td>
+        <td>{{ appointment.appointmentStatus }}</td>
+        <td>{{ appointment.isDeleted === false ? 'Confirmed' : 'Cancelled' }}</td>
+        <td>{{ appointment.ticketNumber }}</td>
+        <td>
+          <button (click)="openUpdateModal(appointment)" class="btn btn-primary">Update</button>
+          <button (click)="softDeleteAppointment(appointment.id)" class="btn btn-danger">Delete</button>
+          <button (click)="approveAppointment(appointment)" class="btn btn-success">Approve</button>
+          <button (click)="rejectAppointment(appointment)" class="btn btn-warning">Disapprove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-secondary">Previous</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage * itemsPerPage >= appointments.length" class="btn btn-secondary">Next</button>
+  </div>
+</div>
+
+<!-- Update Appointment Modal -->
+<div class="modal fade" tabindex="-1" [ngClass]="{ 'show': isModalOpen }" *ngIf="isModalOpen" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Appointment</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label for="userId">User ID:</label>
+          <input type="text" id="userId" [value]="selectedAppointment.userId" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="appointmentDate">Appointment Date:</label>
+          <input type="datetime-local" id="appointmentDate" [(ngModel)]="selectedAppointment.appointmentDate" class="form-control" required>
+        </div>
+        <div>
+          <label for="port">Port:</label>
+          <input type="text" id="port" [value]="selectedAppointment.port" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="truckingCompany">Trucking Company:</label>
+          <input type="text" id="truckingCompany" [value]="selectedAppointment.truckingCompany?.name" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="vehicleNumber">Vehicle Number:</label>
+          <input type="text" id="vehicleNumber" [value]="selectedAppointment.driver?.vehicleNumber" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="containerNumber">Container Number:</label>
+          <input type="text" id="containerNumber" [value]="selectedAppointment.container?.containerNumber" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="terminalName">Terminal Name:</label>
+          <input type="text" id="terminalName" [value]="selectedAppointment.terminalName" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="shipNumber">Ship Number:</label>
+          <input type="text" id="shipNumber" [value]="selectedAppointment.ship?.shipNumber" class="form-control" readonly>
+        </div>
+        <div>
+          <label for="ticketNumber">Ticket Number:</label>
+          <input type="text" id="ticketNumber" [value]="selectedAppointment.ticketNumber" class="form-control" readonly>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="updateAppointment()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

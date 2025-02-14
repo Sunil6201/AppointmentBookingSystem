@@ -1,0 +1,23 @@
+<div>
+  <h2>Register</h2>
+  <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" [(ngModel)]="username" name="username" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <div>
+      <label for="role">Role:</label>
+      <select id="role" [(ngModel)]="role" name="role" required>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+    </div>
+    <button type="submit">Register</button>
+    <div *ngIf="message" class="message">{{ message }}</div> <!-- Display success or error message -->
+    <p>Already have an account? <a routerLink="/login">Login here</a></p>
+  </form>
+</div>

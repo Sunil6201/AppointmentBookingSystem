@@ -1,0 +1,155 @@
+/* src/app/components/navbar/navbar.component.css */
+
+.navbar {
+  width: 100%;
+  background-color: #f8f9fa; /* Light background for the navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+  background-color: #343a40; /* Darker background on scroll */
+}
+
+.main-content {
+  margin-top: 70px; /* Adjusted to account for navbar height */
+  padding: 20px;
+  transition: margin-top 0.3s; /* Smooth transition */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #000 !important;
+  font-weight: 500;
+  font-size: 18px;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #fff;
+  background-color: #4c5c6d;
+  text-decoration: none;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Allow the logo container to grow */
+  justify-content: space-between; /* Space out logo and menu icon */
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+  margin-right: 10px; /* Adjust this value for spacing */
+}
+
+.menu-icon-container {
+  display: flex;
+  align-items: center; /* Center the icon vertically */
+  margin-left: 0; /* Ensure there's no additional margin here */
+  margin-top: -5px; /* Adjust this value to move the icon down slightly */
+}
+
+.menu-icon {
+  width: 50px; /* Set the desired width of the icon (big size) */
+  height: 50px; /* Set the desired height of the icon (big size) */
+  color: #000; /* Dark black color */
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 120px; /* Adjust logo size on mobile */
+  }
+
+  .navbar-nav {
+    display: none; /* Hide the default navbar items on mobile */
+  }
+
+  .sidebar {
+    width: 200px; /* Reduce sidebar width for smaller screens */
+  }
+
+  .sidebar ul {
+    padding: 10px; /* Add padding for sidebar items */
+  }
+
+  .sidebar li {
+    margin: 10px 0;
+  }
+
+  .sidebar button {
+    width: 100%;
+    text-align: left; /* Align text to left */
+  }
+
+  .sidebar .user-info {
+    margin-bottom: 20px; /* Space for user info in the sidebar */
+  }
+
+  .sidebar .user-info span {
+    display: block; /* Ensure username and role stack */
+    color: #fff; /* White text for better visibility */
+    font-size: 16px; /* Adjust font size */
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hide sidebar offscreen */
+  width: 250px;
+  height: 100%;
+  background-color: #343a40; /* Sidebar background color */
+  transition: left 0.3s ease;
+  z-index: 1000; /* Ensure it appears above other elements */
+  padding: 20px; /* Padding for sidebar content */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.sidebar.show {
+  left: 0; /* Show sidebar when toggled */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar button {
+  width: 100%;
+  text-align: left; /* Align text to left */
+  background-color: transparent; /* Transparent background */
+  border: none; /* Remove default border */
+  color: #fff; /* Button text color */
+  font-size: 16px; /* Font size for buttons */
+  padding: 10px; /* Padding for buttons */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.sidebar button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Ensure it appears below the sidebar */
+}
