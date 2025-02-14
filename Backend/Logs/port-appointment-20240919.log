@@ -1,0 +1,1012 @@
+2024-09-19 12:06:44.139 +05:30 [INF] User profile is available. Using 'C:\Users\VishantNileshkumarSh\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 12:06:44.276 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 12:06:44.282 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 12:06:44.285 +05:30 [INF] Hosting environment: Development
+2024-09-19 12:06:44.287 +05:30 [INF] Content root path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI
+2024-09-19 12:07:47.968 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 104
+2024-09-19 12:07:48.026 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 12:07:48.289 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '18-09-2024 09:42:14', Current time (UTC): '19-09-2024 06:37:48'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-19 12:07:48.331 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '18-09-2024 09:42:14', Current time (UTC): '19-09-2024 06:37:48'.
+2024-09-19 12:07:48.350 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 12:07:48.449 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 12:07:55.453 +05:30 [INF] Executed DbCommand (93ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-19 12:07:56.346 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-19 12:07:56.399 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 7928.5558ms
+2024-09-19 12:07:56.406 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 12:07:56.437 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 8473.5424ms
+2024-09-19 12:08:32.069 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 244
+2024-09-19 12:08:32.131 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 12:08:32.141 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 12:08:32.213 +05:30 [INF] CreateAppointment called.
+2024-09-19 12:08:32.349 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 12:08:32.398 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 12:08:32.451 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 12:08:32.507 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__appointment_ContainerNumber_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Container] AS [c]
+WHERE [c].[ContainerNumber] = @__appointment_ContainerNumber_0
+2024-09-19 12:08:32.853 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = Int32), @p4='?' (Size = 4000), @p5='?' (DbType = Int32), @p6='?' (Size = 4000), @p7='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [ContainerNumber], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2024-09-19 12:08:32.908 +05:30 [INF] CreateAppointment completed successfully with TicketNumber: TRALA.
+2024-09-19 12:08:32.917 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-09-19 12:08:32.950 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 801.2944ms
+2024-09-19 12:08:32.955 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 12:08:32.960 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 890.8085ms
+2024-09-19 12:08:38.193 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json 244
+2024-09-19 12:08:38.229 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-19 12:08:38.237 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 12:08:38.249 +05:30 [INF] GetAppointments called.
+2024-09-19 12:08:38.542 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[ContainerNumber], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-19 12:08:38.566 +05:30 [INF] GetAppointments completed successfully with 7 records.
+2024-09-19 12:08:38.572 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-19 12:08:38.590 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 346.1256ms
+2024-09-19 12:08:38.595 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-19 12:08:38.600 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 407.063ms
+2024-09-19 12:10:13.007 +05:30 [INF] Application is shutting down...
+2024-09-19 12:15:41.997 +05:30 [INF] User profile is available. Using 'C:\Users\VishantNileshkumarSh\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 12:15:42.097 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 12:15:42.101 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 12:15:42.102 +05:30 [INF] Hosting environment: Development
+2024-09-19 12:15:42.103 +05:30 [INF] Content root path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI
+2024-09-19 12:15:56.184 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - application/json 244
+2024-09-19 12:15:56.209 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 12:15:56.363 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:15:56.379 +05:30 [INF] Route matched with {action = "DownloadLogs", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DownloadLogs() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 12:15:56.515 +05:30 [INF] DownloadLogs called.
+2024-09-19 12:15:56.523 +05:30 [WRN] Log file not found at path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI\Logs\appointment-logs.txt.
+2024-09-19 12:15:56.529 +05:30 [INF] Executing NotFoundObjectResult, writing value of type 'System.String'.
+2024-09-19 12:15:56.540 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI) in 151.5558ms
+2024-09-19 12:15:56.545 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:15:56.551 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - 404 null text/plain; charset=utf-8 370.1048ms
+2024-09-19 12:20:03.210 +05:30 [INF] Application is shutting down...
+2024-09-19 12:22:18.374 +05:30 [INF] User profile is available. Using 'C:\Users\VishantNileshkumarSh\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 12:22:18.477 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 12:22:18.480 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 12:22:18.482 +05:30 [INF] Hosting environment: Development
+2024-09-19 12:22:18.483 +05:30 [INF] Content root path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI
+2024-09-19 12:22:24.127 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - application/json 244
+2024-09-19 12:22:24.161 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 12:22:24.306 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:22:24.322 +05:30 [INF] Route matched with {action = "DownloadLogs", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DownloadLogs() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 12:22:24.460 +05:30 [INF] DownloadLogs called.
+2024-09-19 12:22:24.476 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI) in 146.7842ms
+2024-09-19 12:22:24.486 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:22:24.489 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.IO.IOException: The process cannot access the file 'C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI\Logs\port-appointment-20240919.log' because it is being used by another process.
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.ReadAllBytes(String path)
+   at PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs() in C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI\Controllers\AppointmentController.cs:line 235
+   at lambda_method2(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 12:22:24.541 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - 500 null text/plain; charset=utf-8 414.5196ms
+2024-09-19 12:23:05.105 +05:30 [INF] Application is shutting down...
+2024-09-19 12:23:43.760 +05:30 [INF] User profile is available. Using 'C:\Users\VishantNileshkumarSh\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 12:23:43.869 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 12:23:43.872 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 12:23:43.875 +05:30 [INF] Hosting environment: Development
+2024-09-19 12:23:43.876 +05:30 [INF] Content root path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI
+2024-09-19 12:23:47.401 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - application/json 244
+2024-09-19 12:23:47.437 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 12:23:47.592 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:23:47.607 +05:30 [INF] Route matched with {action = "DownloadLogs", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DownloadLogs() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 12:23:47.738 +05:30 [INF] DownloadLogs called.
+2024-09-19 12:23:47.742 +05:30 [INF] DownloadLogs completed successfully with file: port-appointment-20240919.log.
+2024-09-19 12:23:47.750 +05:30 [INF] Executing FileContentResult, sending file with download name 'port-appointment-logs.txt' ...
+2024-09-19 12:23:47.766 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI) in 149.4396ms
+2024-09-19 12:23:47.772 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 12:23:47.776 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - 200 17065 text/plain 375.9497ms
+2024-09-19 12:25:27.007 +05:30 [INF] Application is shutting down...
+2024-09-19 17:29:11.785 +05:30 [INF] User profile is available. Using 'C:\Users\VishantNileshkumarSh\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 17:29:11.956 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 17:29:11.960 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 17:29:11.963 +05:30 [INF] Hosting environment: Development
+2024-09-19 17:29:11.966 +05:30 [INF] Content root path: C:\Users\VishantNileshkumarSh\PortAppointmentAPI\PortAppointmentAPI
+2024-09-19 17:30:12.348 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 104
+2024-09-19 17:30:12.466 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 17:30:12.983 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19-09-2024 07:37:56', Current time (UTC): '19-09-2024 12:00:12'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-19 17:30:13.044 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19-09-2024 07:37:56', Current time (UTC): '19-09-2024 12:00:12'.
+2024-09-19 17:30:13.054 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 17:30:13.114 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 17:30:17.486 +05:30 [INF] Executed DbCommand (106ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-19 17:30:19.131 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-19 17:30:19.207 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 6070.9231ms
+2024-09-19 17:30:19.232 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 17:30:19.299 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 6957.3555ms
+2024-09-19 17:31:21.584 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 244
+2024-09-19 17:31:21.679 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 17:31:21.698 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 17:31:21.838 +05:30 [INF] CreateAppointment called.
+2024-09-19 17:31:22.147 +05:30 [INF] Executed DbCommand (33ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 17:31:22.253 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 17:31:22.365 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 17:31:22.859 +05:30 [INF] Executed DbCommand (38ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 17:31:22.929 +05:30 [INF] CreateAppointment completed successfully with TicketNumber: TRALA.
+2024-09-19 17:31:22.936 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-09-19 17:31:22.987 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 1273.0548ms
+2024-09-19 17:31:22.997 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 17:31:23.010 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 1425.9592ms
+2024-09-19 17:31:33.495 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json 244
+2024-09-19 17:31:33.556 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-19 17:31:33.570 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 17:31:33.591 +05:30 [INF] GetAppointments called.
+2024-09-19 17:31:33.996 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-19 17:31:34.042 +05:30 [INF] GetAppointments completed successfully with 8 records.
+2024-09-19 17:31:34.048 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-19 17:31:34.072 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 487.1661ms
+2024-09-19 17:31:34.078 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-19 17:31:34.085 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 590.2764ms
+2024-09-19 17:32:03.757 +05:30 [INF] Application is shutting down...
+2024-09-19 18:20:52.889 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 18:20:53.045 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 18:20:53.049 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 18:20:53.051 +05:30 [INF] Hosting environment: Development
+2024-09-19 18:20:53.053 +05:30 [INF] Content root path: D:\logging4net appointment system\PortAppointmentAPI
+2024-09-19 18:21:00.749 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/ - null null
+2024-09-19 18:21:00.808 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 18:21:00.878 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/ - 404 0 null 133.5984ms
+2024-09-19 18:21:00.900 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/, Response status code: 404
+2024-09-19 18:21:12.385 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/index.html - null null
+2024-09-19 18:21:12.492 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/index.html - 200 null text/html;charset=utf-8 106.472ms
+2024-09-19 18:21:12.513 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui.css - null null
+2024-09-19 18:21:12.520 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/index.css - null null
+2024-09-19 18:21:12.521 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui-bundle.js - null null
+2024-09-19 18:21:12.521 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui-standalone-preset.js - null null
+2024-09-19 18:21:12.528 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/index.js - null null
+2024-09-19 18:21:12.555 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/index.js - 200 null application/javascript;charset=utf-8 26.9316ms
+2024-09-19 18:21:12.553 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-09-19 18:21:12.539 +05:30 [INF] Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2024-09-19 18:21:12.606 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/index.css - 200 202 text/css 85.612ms
+2024-09-19 18:21:12.586 +05:30 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-09-19 18:21:12.559 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-09-19 18:21:12.613 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui.css - 200 152034 text/css 99.5294ms
+2024-09-19 18:21:12.623 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui-bundle.js - 200 1452753 text/javascript 100.9445ms
+2024-09-19 18:21:12.626 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/swagger-ui-standalone-preset.js - 200 230293 text/javascript 104.1502ms
+2024-09-19 18:21:12.871 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/swagger/v1/swagger.json - null null
+2024-09-19 18:21:13.026 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 154.9602ms
+2024-09-19 21:42:10.241 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 21:42:10.368 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 21:42:10.371 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 21:42:10.374 +05:30 [INF] Hosting environment: Development
+2024-09-19 21:42:10.376 +05:30 [INF] Content root path: D:\logging4net appointment system\PortAppointmentAPI
+2024-09-19 21:42:14.751 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/ - null null
+2024-09-19 21:42:14.801 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 21:42:14.930 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/ - 404 0 null 180.6193ms
+2024-09-19 21:42:14.965 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/, Response status code: 404
+2024-09-19 21:45:06.592 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Auth/Register - application/json 79
+2024-09-19 21:45:06.612 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Auth/Register - 404 0 null 20.5027ms
+2024-09-19 21:45:06.623 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/Auth/Register, Response status code: 404
+2024-09-19 21:45:13.007 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Auth/Register - application/json 79
+2024-09-19 21:45:13.027 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Auth/Register - 404 0 null 19.5466ms
+2024-09-19 21:45:13.038 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5096/api/Auth/Register, Response status code: 404
+2024-09-19 21:45:30.748 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/Register - application/json 79
+2024-09-19 21:45:30.763 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:30.827 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 21:45:31.148 +05:30 [INF] Register process started for Username: testuser
+2024-09-19 21:45:33.559 +05:30 [INF] Executed DbCommand (65ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-19 21:45:33.624 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 2782.5284ms
+2024-09-19 21:45:33.632 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:33.637 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+PortAppointmentAPI.Services.ConflictException: User already exists.
+   at PortAppointmentAPI.Services.AuthService.RegisterAsync(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 31
+   at PortAppointmentAPI.Controllers.AuthenticateController.Register(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 27
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:45:33.737 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/Register - 500 null text/plain; charset=utf-8 2988.3573ms
+2024-09-19 21:45:48.690 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/Register - application/json 79
+2024-09-19 21:45:48.701 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:48.705 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 21:45:48.727 +05:30 [INF] Register process started for Username: testuser
+2024-09-19 21:45:48.787 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-19 21:45:48.799 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 85.5332ms
+2024-09-19 21:45:48.804 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:48.808 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+PortAppointmentAPI.Services.ConflictException: User already exists.
+   at PortAppointmentAPI.Services.AuthService.RegisterAsync(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 31
+   at PortAppointmentAPI.Controllers.AuthenticateController.Register(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 27
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:45:48.836 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/Register - 500 null text/plain; charset=utf-8 145.7492ms
+2024-09-19 21:45:55.490 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/register - application/json 79
+2024-09-19 21:45:55.499 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:55.503 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 21:45:55.516 +05:30 [INF] Register process started for Username: testuser
+2024-09-19 21:45:55.658 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-19 21:45:55.666 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 155.8196ms
+2024-09-19 21:45:55.673 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:45:55.677 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+PortAppointmentAPI.Services.ConflictException: User already exists.
+   at PortAppointmentAPI.Services.AuthService.RegisterAsync(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 31
+   at PortAppointmentAPI.Controllers.AuthenticateController.Register(UserLogin model) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 27
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:45:55.702 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/register - 500 null text/plain; charset=utf-8 211.4897ms
+2024-09-19 21:46:22.756 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/register - application/json 84
+2024-09-19 21:46:22.766 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:46:22.769 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 21:46:22.774 +05:30 [INF] Register process started for Username: testuser12345
+2024-09-19 21:46:22.788 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-19 21:46:23.593 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [UserLogin] ([Password], [Role], [Username])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-09-19 21:46:23.671 +05:30 [INF] Registration completed successfully for Username: testuser12345.
+2024-09-19 21:46:23.692 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-09-19 21:46:23.703 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 930.0758ms
+2024-09-19 21:46:23.709 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-19 21:46:23.718 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/register - 200 null text/plain; charset=utf-8 961.8363ms
+2024-09-19 21:46:33.958 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 84
+2024-09-19 21:46:33.966 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 21:46:33.982 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 21:46:33.996 +05:30 [INF] Login process started for Username: testuser12345
+2024-09-19 21:46:34.091 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-19 21:46:34.523 +05:30 [INF] Login completed successfully for Username: testuser12345.
+2024-09-19 21:46:34.527 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-19 21:46:34.546 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 555.596ms
+2024-09-19 21:46:34.550 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 21:46:34.555 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 596.981ms
+2024-09-19 21:47:51.072 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 170
+2024-09-19 21:47:51.175 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:47:51.181 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:47:51.235 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-19 21:47:51.285 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 96.1111ms
+2024-09-19 21:47:51.289 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:47:51.292 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 400 null application/problem+json; charset=utf-8 219.2372ms
+2024-09-19 21:48:12.140 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 170
+2024-09-19 21:48:12.159 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:48:12.163 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:48:12.174 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-19 21:48:12.180 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 9.7917ms
+2024-09-19 21:48:12.185 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:48:12.189 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 400 null application/problem+json; charset=utf-8 48.9983ms
+2024-09-19 21:49:25.284 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 239
+2024-09-19 21:49:25.296 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:49:25.300 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:49:25.315 +05:30 [INF] CreateAppointment called.
+2024-09-19 21:49:25.400 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 21:49:25.441 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 21:49:25.484 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 21:49:25.618 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 21:49:25.649 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'PortAppointmentAPI.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+2024-09-19 21:49:25.684 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 377.7438ms
+2024-09-19 21:49:25.690 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:49:25.695 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment(Appointment appointment) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AppointmentController.cs:line 92
+   at lambda_method119(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:49:25.749 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 500 null text/plain; charset=utf-8 465.6964ms
+2024-09-19 21:49:42.771 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 240
+2024-09-19 21:49:42.782 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:49:42.786 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:49:42.797 +05:30 [INF] CreateAppointment called.
+2024-09-19 21:49:42.807 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 21:49:42.820 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 21:49:42.835 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 21:49:42.857 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 21:49:42.870 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'PortAppointmentAPI.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+2024-09-19 21:49:42.917 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 123.1261ms
+2024-09-19 21:49:42.923 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:49:42.929 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment(Appointment appointment) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AppointmentController.cs:line 92
+   at lambda_method119(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:49:42.984 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 500 null text/plain; charset=utf-8 212.8497ms
+2024-09-19 21:52:04.621 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 184
+2024-09-19 21:52:04.631 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:52:04.634 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:52:04.641 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-19 21:52:04.644 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 4.1732ms
+2024-09-19 21:52:04.645 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:52:04.650 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 400 null application/problem+json; charset=utf-8 28.5694ms
+2024-09-19 21:52:36.503 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 253
+2024-09-19 21:52:36.513 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:52:36.516 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 21:52:36.520 +05:30 [INF] CreateAppointment called.
+2024-09-19 21:52:36.528 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 21:52:36.539 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 21:52:36.553 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 21:52:36.567 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 21:52:36.575 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'PortAppointmentAPI.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+2024-09-19 21:52:36.606 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 86.1729ms
+2024-09-19 21:52:36.609 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 21:52:36.617 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:5e654d71-1729-414d-8af9-fa2fe5e7e1c4
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment(Appointment appointment) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AppointmentController.cs:line 92
+   at lambda_method119(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 21:52:36.654 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 500 null text/plain; charset=utf-8 150.878ms
+2024-09-19 22:31:48.102 +05:30 [INF] Application is shutting down...
+2024-09-19 22:31:53.158 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 22:31:53.301 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 22:31:53.306 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 22:31:53.311 +05:30 [INF] Hosting environment: Development
+2024-09-19 22:31:53.315 +05:30 [INF] Content root path: D:\logging4net appointment system\PortAppointmentAPI
+2024-09-19 22:32:22.109 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 111
+2024-09-19 22:32:22.156 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 22:32:22.369 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 22:32:22.408 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-19 22:32:22.687 +05:30 [INF] Login process started for Username: testuser12345
+2024-09-19 22:32:24.835 +05:30 [INF] Executed DbCommand (63ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-19 22:32:25.681 +05:30 [INF] Login completed successfully for Username: testuser12345.
+2024-09-19 22:32:25.698 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-19 22:32:25.733 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 3312.5365ms
+2024-09-19 22:32:25.742 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-19 22:32:25.775 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 3665.634ms
+2024-09-19 22:33:40.245 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 237
+2024-09-19 22:33:40.272 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 22:33:40.284 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 22:33:40.352 +05:30 [INF] CreateAppointment called.
+2024-09-19 22:33:40.497 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 22:33:40.551 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 22:33:40.607 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 22:33:40.940 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 22:33:41.007 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'PortAppointmentAPI.Data.ApplicationDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:c46aa919-0567-4b01-afa8-d2e2b847f50f
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:c46aa919-0567-4b01-afa8-d2e2b847f50f
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+2024-09-19 22:33:41.058 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 767.2718ms
+2024-09-19 22:33:41.065 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 22:33:41.070 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Appointments_Container". The conflict occurred in database "PortAppointmentDB", table "dbo.Container", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+ClientConnectionId:c46aa919-0567-4b01-afa8-d2e2b847f50f
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment(Appointment appointment) in D:\logging4net appointment system\PortAppointmentAPI\Controllers\AppointmentController.cs:line 92
+   at lambda_method83(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-19 22:33:41.150 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 500 null text/plain; charset=utf-8 904.9996ms
+2024-09-19 22:43:38.839 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 237
+2024-09-19 22:43:38.856 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 22:43:38.861 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 22:43:38.874 +05:30 [INF] CreateAppointment called.
+2024-09-19 22:43:39.037 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-09-19 22:43:39.049 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[ShipNumber], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-09-19 22:43:39.062 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-09-19 22:43:39.097 +05:30 [INF] Executed DbCommand (18ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (DbType = Int32), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [ContainerId], [DriverId], [Port], [ShipId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+2024-09-19 22:43:39.159 +05:30 [INF] CreateAppointment completed successfully with TicketNumber: GLOLA.
+2024-09-19 22:43:39.164 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-09-19 22:43:39.199 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 329.7986ms
+2024-09-19 22:43:39.208 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-09-19 22:43:39.213 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 374.1878ms
+2024-09-19 22:44:42.728 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/container - application/json 237
+2024-09-19 22:44:42.748 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-09-19 22:44:42.758 +05:30 [INF] Route matched with {action = "GetContainers", controller = "Container"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetContainers() on controller PortAppointmentAPI.Controllers.ContainerController (PortAppointmentAPI).
+2024-09-19 22:44:42.771 +05:30 [INF] Fetching all containers.
+2024-09-19 22:44:42.801 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Container] AS [c]
+2024-09-19 22:44:42.828 +05:30 [INF] Fetched 8 containers.
+2024-09-19 22:44:42.833 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Container, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-19 22:44:42.858 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI) in 90.7344ms
+2024-09-19 22:44:42.865 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-09-19 22:44:42.870 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/container - 200 null application/json; charset=utf-8 141.8114ms
+2024-09-19 22:48:49.986 +05:30 [INF] Application is shutting down...
+2024-09-19 22:48:55.037 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 22:48:55.159 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 22:48:55.165 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 22:48:55.168 +05:30 [INF] Hosting environment: Development
+2024-09-19 22:48:55.170 +05:30 [INF] Content root path: D:\logging4net appointment system\PortAppointmentAPI
+2024-09-19 22:49:00.447 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/container - application/json 237
+2024-09-19 22:49:00.486 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 22:49:00.631 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-09-19 22:49:00.652 +05:30 [INF] Route matched with {action = "GetContainers", controller = "Container"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetContainers() on controller PortAppointmentAPI.Controllers.ContainerController (PortAppointmentAPI).
+2024-09-19 22:49:00.793 +05:30 [INF] Fetching all containers.
+2024-09-19 22:49:01.999 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Container] AS [c]
+2024-09-19 22:49:02.114 +05:30 [INF] Fetched 8 containers.
+2024-09-19 22:49:02.133 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Container, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-19 22:49:02.180 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI) in 1518.4456ms
+2024-09-19 22:49:02.190 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-09-19 22:49:02.208 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/container - 200 null application/json; charset=utf-8 1762.8152ms
+2024-09-19 22:49:41.654 +05:30 [INF] Application is shutting down...
+2024-09-19 22:52:07.389 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-19 22:52:07.536 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-19 22:52:07.541 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-19 22:52:07.544 +05:30 [INF] Hosting environment: Development
+2024-09-19 22:52:07.548 +05:30 [INF] Content root path: D:\logging4net appointment system\PortAppointmentAPI
+2024-09-19 22:52:14.374 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - application/json 237
+2024-09-19 22:52:14.406 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-19 22:52:14.562 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 22:52:14.581 +05:30 [INF] Route matched with {action = "DownloadLogs", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DownloadLogs() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-19 22:52:14.722 +05:30 [INF] DownloadLogs called.
+2024-09-19 22:52:14.728 +05:30 [INF] DownloadLogs completed successfully with file: port-appointment-20240919.log.
+2024-09-19 22:52:14.738 +05:30 [INF] Executing FileContentResult, sending file with download name 'port-appointment-logs.txt' ...
+2024-09-19 22:52:14.770 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI) in 177.3063ms
+2024-09-19 22:52:14.782 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.DownloadLogs (PortAppointmentAPI)'
+2024-09-19 22:52:14.796 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment/download-logs - 200 121142 text/plain 421.8256ms
+2024-09-19 23:27:33.483 +05:30 [INF] Application is shutting down...

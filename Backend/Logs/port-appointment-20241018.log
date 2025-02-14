@@ -1,0 +1,405 @@
+2024-10-18 00:08:00.656 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-10-18 00:08:00.770 +05:30 [INF] Now listening on: http://localhost:5096
+2024-10-18 00:08:00.773 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-18 00:08:00.775 +05:30 [INF] Hosting environment: Development
+2024-10-18 00:08:00.776 +05:30 [INF] Content root path: D:\FINAL API\Case Study Backend\PortAppointmentAPI
+2024-10-18 00:08:32.217 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - null null
+2024-10-18 00:08:32.236 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-10-18 00:08:32.256 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:08:32.264 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - 204 null null 48.5176ms
+2024-10-18 00:08:32.273 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 57
+2024-10-18 00:08:32.280 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:08:32.315 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-10-18 00:08:32.344 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-10-18 00:08:32.530 +05:30 [INF] Login process started for Username: abc123
+2024-10-18 00:08:33.625 +05:30 [INF] Executed DbCommand (35ms) [Parameters=[@__model_Username_0='?' (Size = 4000), @__model_Role_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0 AND [u].[Role] = @__model_Role_1
+2024-10-18 00:08:34.027 +05:30 [INF] Login completed successfully for Username: abc123.
+2024-10-18 00:08:34.034 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-10-18 00:08:34.047 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 1695.2359ms
+2024-10-18 00:08:34.049 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-10-18 00:08:34.057 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 1783.7055ms
+2024-10-18 00:08:34.094 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 00:08:34.100 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:08:34.102 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 8.7897ms
+2024-10-18 00:08:34.108 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 00:08:34.113 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:08:34.164 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 00:08:34.168 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 00:08:34.171 +05:30 [INF] GetAppointments called.
+2024-10-18 00:08:34.279 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 00:08:34.364 +05:30 [INF] GetAppointments completed successfully with 5 records.
+2024-10-18 00:08:34.367 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 00:08:34.393 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 223.5184ms
+2024-10-18 00:08:34.397 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 00:08:34.398 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 290.2427ms
+2024-10-18 00:09:40.220 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/terminal - null null
+2024-10-18 00:09:40.224 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:09:40.225 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/terminal - 204 null null 4.8742ms
+2024-10-18 00:09:40.229 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/terminal - application/json null
+2024-10-18 00:09:40.232 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:09:40.236 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI)'
+2024-10-18 00:09:40.240 +05:30 [INF] Route matched with {action = "GetTerminals", controller = "Terminal"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetTerminals() on controller PortAppointmentAPI.Controllers.TerminalController (PortAppointmentAPI).
+2024-10-18 00:09:40.242 +05:30 [INF] GetTerminals called.
+2024-10-18 00:09:40.311 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[IsDeleted], [t].[Location], [t].[TerminalName]
+FROM [Terminals] AS [t]
+WHERE [t].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 00:09:40.315 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Terminal, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 00:09:40.318 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI) in 76.4078ms
+2024-10-18 00:09:40.320 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI)'
+2024-10-18 00:09:40.321 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/terminal - 200 null application/json; charset=utf-8 91.9224ms
+2024-10-18 00:09:45.503 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 00:09:45.510 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:09:45.513 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 10.3165ms
+2024-10-18 00:09:45.519 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 00:09:45.521 +05:30 [INF] CORS policy execution successful.
+2024-10-18 00:09:45.526 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 00:09:45.528 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 00:09:45.532 +05:30 [INF] GetAppointments called.
+2024-10-18 00:09:45.536 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 00:09:45.542 +05:30 [INF] GetAppointments completed successfully with 5 records.
+2024-10-18 00:09:45.546 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 00:09:45.547 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 16.7227ms
+2024-10-18 00:09:45.549 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 00:09:45.550 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 31.1139ms
+2024-10-18 14:46:34.258 +05:30 [INF] User profile is available. Using 'C:\Users\YashKamleshkumarShah\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-10-18 14:46:35.471 +05:30 [INF] Now listening on: http://localhost:5096
+2024-10-18 14:46:35.714 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-18 14:46:35.740 +05:30 [INF] Hosting environment: Development
+2024-10-18 14:46:35.741 +05:30 [INF] Content root path: D:\FINAL API\Case Study Backend\PortAppointmentAPI
+2024-10-18 14:48:07.809 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - null null
+2024-10-18 14:48:07.844 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-10-18 14:48:07.871 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:07.883 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - 204 null null 76.258ms
+2024-10-18 14:48:07.894 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 57
+2024-10-18 14:48:07.903 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:07.960 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-10-18 14:48:07.999 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-10-18 14:48:08.254 +05:30 [INF] Login process started for Username: abc123
+2024-10-18 14:48:15.268 +05:30 [INF] Executed DbCommand (51ms) [Parameters=[@__model_Username_0='?' (Size = 4000), @__model_Role_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0 AND [u].[Role] = @__model_Role_1
+2024-10-18 14:48:15.736 +05:30 [INF] Login completed successfully for Username: abc123.
+2024-10-18 14:48:15.744 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-10-18 14:48:15.761 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 7752.7478ms
+2024-10-18 14:48:15.763 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-10-18 14:48:15.772 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 7877.8582ms
+2024-10-18 14:48:15.812 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 14:48:15.817 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:15.819 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 6.9556ms
+2024-10-18 14:48:15.823 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 14:48:15.832 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:15.878 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:48:15.883 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:48:15.888 +05:30 [INF] GetAppointments called.
+2024-10-18 14:48:15.988 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 14:48:16.060 +05:30 [INF] GetAppointments completed successfully with 5 records.
+2024-10-18 14:48:16.065 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:16.098 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 213.4493ms
+2024-10-18 14:48:16.101 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:48:16.104 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 280.0591ms
+2024-10-18 14:48:28.664 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/truckingcompany - null null
+2024-10-18 14:48:28.667 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/driver - null null
+2024-10-18 14:48:28.667 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/terminal - null null
+2024-10-18 14:48:28.667 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/container - null null
+2024-10-18 14:48:28.668 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/ship - null null
+2024-10-18 14:48:28.668 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/ship - null null
+2024-10-18 14:48:28.669 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.672 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.676 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.679 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.682 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.686 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.688 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/truckingcompany - 204 null null 23.3163ms
+2024-10-18 14:48:28.689 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/driver - 204 null null 21.8412ms
+2024-10-18 14:48:28.690 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/terminal - 204 null null 23.3853ms
+2024-10-18 14:48:28.693 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/container - 204 null null 24.996ms
+2024-10-18 14:48:28.694 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/ship - 204 null null 26.6944ms
+2024-10-18 14:48:28.695 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/ship - 204 null null 27.4303ms
+2024-10-18 14:48:28.699 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/terminal - application/json null
+2024-10-18 14:48:28.703 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/truckingcompany - application/json null
+2024-10-18 14:48:28.709 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/driver - application/json null
+2024-10-18 14:48:28.718 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/container - application/json null
+2024-10-18 14:48:28.724 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/ship - application/json null
+2024-10-18 14:48:28.728 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.732 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.736 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.740 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.744 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.749 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI)'
+2024-10-18 14:48:28.749 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI)'
+2024-10-18 14:48:28.749 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-10-18 14:48:28.750 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-10-18 14:48:28.752 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI)'
+2024-10-18 14:48:28.759 +05:30 [INF] Route matched with {action = "GetTerminals", controller = "Terminal"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetTerminals() on controller PortAppointmentAPI.Controllers.TerminalController (PortAppointmentAPI).
+2024-10-18 14:48:28.759 +05:30 [INF] Route matched with {action = "GetDrivers", controller = "Driver"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDrivers() on controller PortAppointmentAPI.Controllers.DriverController (PortAppointmentAPI).
+2024-10-18 14:48:28.763 +05:30 [INF] Route matched with {action = "GetTruckingCompanies", controller = "TruckingCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTruckingCompanies() on controller PortAppointmentAPI.Controllers.TruckingCompanyController (PortAppointmentAPI).
+2024-10-18 14:48:28.765 +05:30 [INF] Route matched with {action = "GetContainers", controller = "Container"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetContainers() on controller PortAppointmentAPI.Controllers.ContainerController (PortAppointmentAPI).
+2024-10-18 14:48:28.767 +05:30 [INF] Route matched with {action = "GetShips", controller = "Ship"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetShips() on controller PortAppointmentAPI.Controllers.ShipController (PortAppointmentAPI).
+2024-10-18 14:48:28.769 +05:30 [INF] GetTerminals called.
+2024-10-18 14:48:28.777 +05:30 [INF] Fetching all drivers.
+2024-10-18 14:48:28.778 +05:30 [INF] Fetching all trucking companies.
+2024-10-18 14:48:28.782 +05:30 [INF] Fetching all containers.
+2024-10-18 14:48:28.785 +05:30 [INF] Fetching all ships.
+2024-10-18 14:48:28.883 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[IsDeleted], [t].[Location], [t].[TerminalName]
+FROM [Terminals] AS [t]
+WHERE [t].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.883 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.884 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.888 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Terminal, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.888 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type]
+FROM [Container] AS [c]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.891 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.893 +05:30 [INF] Fetched 10 trucking companies.
+2024-10-18 14:48:28.895 +05:30 [INF] Fetched 10 ships.
+2024-10-18 14:48:28.898 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI) in 129.9321ms
+2024-10-18 14:48:28.902 +05:30 [INF] Fetched 9 containers.
+2024-10-18 14:48:28.906 +05:30 [INF] Fetched 13 drivers.
+2024-10-18 14:48:28.907 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.TruckingCompany, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.909 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Ship, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.911 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TerminalController.GetTerminals (PortAppointmentAPI)'
+2024-10-18 14:48:28.913 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Container, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.914 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Driver, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.918 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI) in 141.3494ms
+2024-10-18 14:48:28.920 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI) in 136.1992ms
+2024-10-18 14:48:28.922 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/terminal - 200 null application/json; charset=utf-8 222.2904ms
+2024-10-18 14:48:28.923 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/ship - application/json null
+2024-10-18 14:48:28.926 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI) in 145.1826ms
+2024-10-18 14:48:28.928 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI) in 155.3782ms
+2024-10-18 14:48:28.929 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-10-18 14:48:28.932 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI)'
+2024-10-18 14:48:28.939 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:28.942 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.ContainerController.GetContainers (PortAppointmentAPI)'
+2024-10-18 14:48:28.944 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI)'
+2024-10-18 14:48:28.946 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/truckingcompany - 200 null application/json; charset=utf-8 242.9235ms
+2024-10-18 14:48:28.949 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/ship - 200 null application/json; charset=utf-8 225.2693ms
+2024-10-18 14:48:28.951 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI)'
+2024-10-18 14:48:28.952 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/container - 200 null application/json; charset=utf-8 234.4677ms
+2024-10-18 14:48:28.955 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/driver - 200 null application/json; charset=utf-8 245.8099ms
+2024-10-18 14:48:28.965 +05:30 [INF] Route matched with {action = "GetShips", controller = "Ship"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetShips() on controller PortAppointmentAPI.Controllers.ShipController (PortAppointmentAPI).
+2024-10-18 14:48:28.978 +05:30 [INF] Fetching all ships.
+2024-10-18 14:48:28.985 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2024-10-18 14:48:28.989 +05:30 [INF] Fetched 10 ships.
+2024-10-18 14:48:28.992 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Ship, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:28.994 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI) in 16.728ms
+2024-10-18 14:48:28.997 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.ShipController.GetShips (PortAppointmentAPI)'
+2024-10-18 14:48:29.000 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/ship - 200 null application/json; charset=utf-8 76.6124ms
+2024-10-18 14:48:50.709 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 14:48:50.716 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:50.719 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 9.222ms
+2024-10-18 14:48:50.725 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment - application/json 370
+2024-10-18 14:48:50.730 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:50.734 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-10-18 14:48:50.739 +05:30 [INF] Route matched with {action = "CreateAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult CreateAppointment(PortAppointmentAPI.Models.Appointment) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:48:50.760 +05:30 [INF] CreateAppointment called.
+2024-10-18 14:48:50.784 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name]
+FROM [TruckingCompany] AS [t]
+WHERE [t].[Id] = @__p_0
+2024-10-18 14:48:50.797 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot]
+FROM [Ship] AS [s]
+WHERE [s].[Id] = @__p_0
+2024-10-18 14:48:50.811 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+WHERE [d].[Id] = @__p_0
+2024-10-18 14:48:50.954 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 4000), @p9='?' (DbType = Int32), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Appointments] ([AppointmentDate], [AppointmentStatus], [ContainerId], [DriverId], [IsDeleted], [Port], [ShipId], [TerminalId], [TicketNumber], [TruckingCompanyId], [UserId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10);
+2024-10-18 14:48:50.988 +05:30 [INF] CreateAppointment completed successfully with TicketNumber: TRAP005.
+2024-10-18 14:48:50.991 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-10-18 14:48:50.994 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI) in 251.9553ms
+2024-10-18 14:48:50.998 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.CreateAppointment (PortAppointmentAPI)'
+2024-10-18 14:48:51.002 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 276.6173ms
+2024-10-18 14:48:53.527 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 14:48:53.533 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:53.538 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:48:53.541 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:48:53.544 +05:30 [INF] GetAppointments called.
+2024-10-18 14:48:53.566 +05:30 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 14:48:53.575 +05:30 [INF] GetAppointments completed successfully with 6 records.
+2024-10-18 14:48:53.577 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:48:53.581 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 37.1436ms
+2024-10-18 14:48:53.583 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:48:53.586 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 58.8843ms
+2024-10-18 14:48:57.965 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/approve - null null
+2024-10-18 14:48:57.974 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:57.976 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/approve - 204 null null 10.6411ms
+2024-10-18 14:48:57.985 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment/1005/approve - application/json 2
+2024-10-18 14:48:57.995 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:48:57.998 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.ApproveAppointment (PortAppointmentAPI)'
+2024-10-18 14:48:58.008 +05:30 [INF] Route matched with {action = "ApproveAppointment", controller = "Appointment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ApproveAppointment(Int32) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:48:58.014 +05:30 [INF] ApproveAppointment called for Id: 1005.
+2024-10-18 14:48:58.030 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId]
+FROM [Appointments] AS [a]
+WHERE [a].[Id] = @__p_0
+2024-10-18 14:48:58.075 +05:30 [INF] Executed DbCommand (20ms) [Parameters=[@p11='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 4000), @p9='?' (DbType = Int32), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Appointments] SET [AppointmentDate] = @p0, [AppointmentStatus] = @p1, [ContainerId] = @p2, [DriverId] = @p3, [IsDeleted] = @p4, [Port] = @p5, [ShipId] = @p6, [TerminalId] = @p7, [TicketNumber] = @p8, [TruckingCompanyId] = @p9, [UserId] = @p10
+OUTPUT 1
+WHERE [Id] = @p11;
+2024-10-18 14:48:58.091 +05:30 [INF] ApproveAppointment completed successfully for Id: 1005.
+2024-10-18 14:48:58.093 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-10-18 14:48:58.096 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.ApproveAppointment (PortAppointmentAPI) in 83.6633ms
+2024-10-18 14:48:58.099 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.ApproveAppointment (PortAppointmentAPI)'
+2024-10-18 14:48:58.101 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment/1005/approve - 200 null application/json; charset=utf-8 115.9296ms
+2024-10-18 14:49:00.822 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 14:49:00.829 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:00.830 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 8.666ms
+2024-10-18 14:49:00.836 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 14:49:00.843 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:00.845 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:00.847 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:49:00.851 +05:30 [INF] GetAppointments called.
+2024-10-18 14:49:00.878 +05:30 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 14:49:00.884 +05:30 [INF] GetAppointments completed successfully with 6 records.
+2024-10-18 14:49:00.886 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:49:00.889 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 38.4371ms
+2024-10-18 14:49:00.894 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:00.896 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 60.6824ms
+2024-10-18 14:49:02.119 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/reject - null null
+2024-10-18 14:49:02.126 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:02.129 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/reject - 204 null null 9.3968ms
+2024-10-18 14:49:02.136 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/appointment/1005/reject - application/json 2
+2024-10-18 14:49:02.143 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:02.145 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.RejectAppointment (PortAppointmentAPI)'
+2024-10-18 14:49:02.151 +05:30 [INF] Route matched with {action = "RejectAppointment", controller = "Appointment"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RejectAppointment(Int32) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:49:02.157 +05:30 [INF] RejectAppointment called for Id: 1005.
+2024-10-18 14:49:02.167 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId]
+FROM [Appointments] AS [a]
+WHERE [a].[Id] = @__p_0
+2024-10-18 14:49:02.193 +05:30 [INF] Executed DbCommand (20ms) [Parameters=[@p11='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 4000), @p9='?' (DbType = Int32), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Appointments] SET [AppointmentDate] = @p0, [AppointmentStatus] = @p1, [ContainerId] = @p2, [DriverId] = @p3, [IsDeleted] = @p4, [Port] = @p5, [ShipId] = @p6, [TerminalId] = @p7, [TicketNumber] = @p8, [TruckingCompanyId] = @p9, [UserId] = @p10
+OUTPUT 1
+WHERE [Id] = @p11;
+2024-10-18 14:49:02.199 +05:30 [INF] RejectAppointment completed successfully for Id: 1005.
+2024-10-18 14:49:02.200 +05:30 [INF] Executing OkObjectResult, writing value of type 'PortAppointmentAPI.Models.Appointment'.
+2024-10-18 14:49:02.203 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.RejectAppointment (PortAppointmentAPI) in 48.1666ms
+2024-10-18 14:49:02.207 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.RejectAppointment (PortAppointmentAPI)'
+2024-10-18 14:49:02.210 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/appointment/1005/reject - 200 null application/json; charset=utf-8 73.2592ms
+2024-10-18 14:49:03.356 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 14:49:03.361 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:03.363 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:03.366 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:49:03.369 +05:30 [INF] GetAppointments called.
+2024-10-18 14:49:03.394 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 14:49:03.400 +05:30 [INF] GetAppointments completed successfully with 6 records.
+2024-10-18 14:49:03.401 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:49:03.403 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 33.595ms
+2024-10-18 14:49:03.404 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:03.406 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 49.6381ms
+2024-10-18 14:49:06.708 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/delete - null null
+2024-10-18 14:49:06.718 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:06.722 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment/1005/delete - 204 null null 13.7296ms
+2024-10-18 14:49:06.734 +05:30 [INF] Request starting HTTP/1.1 PATCH http://localhost:5096/api/appointment/1005/delete - application/json 2
+2024-10-18 14:49:06.740 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:06.742 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.SoftDeleteAppointment (PortAppointmentAPI)'
+2024-10-18 14:49:06.746 +05:30 [INF] Route matched with {action = "SoftDeleteAppointment", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult SoftDeleteAppointment(Int32) on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:49:06.753 +05:30 [INF] SoftDeleteAppointment called for Id: 1005.
+2024-10-18 14:49:06.763 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId]
+FROM [Appointments] AS [a]
+WHERE [a].[Id] = @__p_0
+2024-10-18 14:49:06.788 +05:30 [INF] Executed DbCommand (20ms) [Parameters=[@p11='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 4000), @p9='?' (DbType = Int32), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Appointments] SET [AppointmentDate] = @p0, [AppointmentStatus] = @p1, [ContainerId] = @p2, [DriverId] = @p3, [IsDeleted] = @p4, [Port] = @p5, [ShipId] = @p6, [TerminalId] = @p7, [TicketNumber] = @p8, [TruckingCompanyId] = @p9, [UserId] = @p10
+OUTPUT 1
+WHERE [Id] = @p11;
+2024-10-18 14:49:06.796 +05:30 [INF] SoftDeleteAppointment completed successfully for Id: 1005.
+2024-10-18 14:49:06.803 +05:30 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2024-10-18 14:49:06.805 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.SoftDeleteAppointment (PortAppointmentAPI) in 53.0187ms
+2024-10-18 14:49:06.808 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.SoftDeleteAppointment (PortAppointmentAPI)'
+2024-10-18 14:49:06.811 +05:30 [INF] Request finished HTTP/1.1 PATCH http://localhost:5096/api/appointment/1005/delete - 204 null null 76.9647ms
+2024-10-18 14:49:07.843 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - null null
+2024-10-18 14:49:07.848 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:07.850 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/appointment - 204 null null 7.6696ms
+2024-10-18 14:49:07.858 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/appointment - application/json null
+2024-10-18 14:49:07.862 +05:30 [INF] CORS policy execution successful.
+2024-10-18 14:49:07.866 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:07.868 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-10-18 14:49:07.873 +05:30 [INF] GetAppointments called.
+2024-10-18 14:49:07.899 +05:30 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[AppointmentStatus], [a].[ContainerId], [a].[DriverId], [a].[IsDeleted], [a].[Port], [a].[ShipId], [a].[TerminalId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[DriverName], [d].[IsDeleted], [d].[LicenseNumber], [d].[Status], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[IsDeleted], [t].[Name], [s].[Id], [s].[IsDeleted], [s].[ShipNumber], [s].[Status], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[IsDeleted], [c].[Size], [c].[Status], [c].[Type], [t0].[Id], [t0].[IsDeleted], [t0].[Location], [t0].[TerminalName]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+INNER JOIN [Terminals] AS [t0] ON [a].[TerminalId] = [t0].[Id]
+2024-10-18 14:49:07.906 +05:30 [INF] GetAppointments completed successfully with 6 records.
+2024-10-18 14:49:07.907 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-10-18 14:49:07.909 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 37.0202ms
+2024-10-18 14:49:07.911 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-10-18 14:49:07.913 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/appointment - 200 null application/json; charset=utf-8 54.6275ms
+2024-10-18 14:58:10.539 +05:30 [INF] Application is shutting down...

@@ -1,0 +1,778 @@
+2024-09-24 10:37:16.415 +05:30 [INF] Executed DbCommand (228ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [PortAppointmentDB];
+2024-09-24 10:37:16.572 +05:30 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [PortAppointmentDB] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2024-09-24 10:37:16.596 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-24 10:37:16.727 +05:30 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2024-09-24 10:37:16.735 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-09-24 10:37:16.756 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-09-24 10:37:16.766 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-09-24 10:37:16.798 +05:30 [INF] Applying migration '20240924050655_PortAppointment'.
+2024-09-24 10:37:16.882 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Container] (
+    [Id] int NOT NULL IDENTITY,
+    [ContainerNumber] nvarchar(max) NOT NULL,
+    [Type] nvarchar(max) NOT NULL,
+    [Size] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Container] PRIMARY KEY ([Id])
+);
+2024-09-24 10:37:16.890 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Driver] (
+    [Id] int NOT NULL IDENTITY,
+    [DriverMobileNumber] nvarchar(max) NOT NULL,
+    [LicenseNumber] nvarchar(max) NOT NULL,
+    [VehicleNumber] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Driver] PRIMARY KEY ([Id])
+);
+2024-09-24 10:37:16.896 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Ship] (
+    [Id] int NOT NULL IDENTITY,
+    [ShipNumber] nvarchar(50) NOT NULL,
+    [TimeSlot] time NOT NULL,
+    CONSTRAINT [PK_Ship] PRIMARY KEY ([Id])
+);
+2024-09-24 10:37:16.903 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [TruckingCompany] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [DropType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_TruckingCompany] PRIMARY KEY ([Id])
+);
+2024-09-24 10:37:16.914 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [UserLogin] (
+    [Id] int NOT NULL IDENTITY,
+    [Username] nvarchar(max) NOT NULL,
+    [Password] nvarchar(max) NOT NULL,
+    [Role] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_UserLogin] PRIMARY KEY ([Id])
+);
+2024-09-24 10:37:16.926 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Appointments] (
+    [Id] int NOT NULL IDENTITY,
+    [AppointmentDate] datetime2 NOT NULL,
+    [Port] nvarchar(max) NOT NULL,
+    [UserId] int NOT NULL,
+    [TruckingCompanyId] int NOT NULL,
+    [ShipId] int NOT NULL,
+    [DriverId] int NOT NULL,
+    [ContainerId] int NOT NULL,
+    [TicketNumber] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Appointments] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Appointments_Container_ContainerId] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_Appointments_Driver_DriverId] FOREIGN KEY ([DriverId]) REFERENCES [Driver] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Appointments_Ship_ShipId] FOREIGN KEY ([ShipId]) REFERENCES [Ship] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Appointments_TruckingCompany_TruckingCompanyId] FOREIGN KEY ([TruckingCompanyId]) REFERENCES [TruckingCompany] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Appointments_UserLogin_UserId] FOREIGN KEY ([UserId]) REFERENCES [UserLogin] ([Id]) ON DELETE CASCADE
+);
+2024-09-24 10:37:16.936 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Appointments_ContainerId] ON [Appointments] ([ContainerId]);
+2024-09-24 10:37:16.944 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Appointments_DriverId] ON [Appointments] ([DriverId]);
+2024-09-24 10:37:16.950 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Appointments_ShipId] ON [Appointments] ([ShipId]);
+2024-09-24 10:37:16.955 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Appointments_TruckingCompanyId] ON [Appointments] ([TruckingCompanyId]);
+2024-09-24 10:37:16.961 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Appointments_UserId] ON [Appointments] ([UserId]);
+2024-09-24 10:37:16.970 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240924050655_PortAppointment', N'8.0.8');
+2024-09-24 11:27:40.440 +05:30 [INF] User profile is available. Using 'C:\Users\SunilReddyDoddeti\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-24 11:27:41.295 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-24 11:27:41.323 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-24 11:27:41.325 +05:30 [INF] Hosting environment: Development
+2024-09-24 11:27:41.327 +05:30 [INF] Content root path: C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI
+2024-09-24 11:34:16.652 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - application/json 78
+2024-09-24 11:34:16.676 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-24 11:34:16.793 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:34:16.815 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:34:16.822 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:34:16.872 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:34:17.078 +05:30 [INF] Register process started for Username: sunil
+2024-09-24 11:34:18.434 +05:30 [INF] Executed DbCommand (37ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-24 11:34:18.463 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 1583.4239ms
+2024-09-24 11:34:18.470 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:34:18.474 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+PortAppointmentAPI.Services.ConflictException: User already exists.
+   at PortAppointmentAPI.Services.AuthService.RegisterAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 31
+   at PortAppointmentAPI.Controllers.AuthenticateController.Register(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 27
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:34:18.517 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - 500 null text/plain; charset=utf-8 1866.7918ms
+2024-09-24 11:35:56.790 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - application/json 78
+2024-09-24 11:35:56.803 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:35:56.813 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:35:56.818 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:35:56.822 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:35:56.830 +05:30 [INF] Register process started for Username: sunil
+2024-09-24 11:35:56.868 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-24 11:35:56.876 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 48.1771ms
+2024-09-24 11:35:56.878 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:35:56.882 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+PortAppointmentAPI.Services.ConflictException: User already exists.
+   at PortAppointmentAPI.Services.AuthService.RegisterAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 31
+   at PortAppointmentAPI.Controllers.AuthenticateController.Register(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 27
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:35:56.898 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - 500 null text/plain; charset=utf-8 107.9497ms
+2024-09-24 11:36:10.319 +05:30 [INF] Application is shutting down...
+2024-09-24 11:36:15.783 +05:30 [INF] User profile is available. Using 'C:\Users\SunilReddyDoddeti\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-24 11:36:15.912 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-24 11:36:15.916 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-24 11:36:15.919 +05:30 [INF] Hosting environment: Development
+2024-09-24 11:36:15.922 +05:30 [INF] Content root path: C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI
+2024-09-24 11:36:49.193 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:36:49.222 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-24 11:36:49.341 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:36:49.367 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:36:49.377 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:36:49.410 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:36:49.578 +05:30 [INF] Login process started for Username: sunil
+2024-09-24 11:36:50.729 +05:30 [INF] Executed DbCommand (39ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:36:50.825 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 1405.8454ms
+2024-09-24 11:36:50.833 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:36:50.838 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+BCrypt.Net.SaltParseException: Invalid salt version
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at PortAppointmentAPI.Services.AuthService.VerifyPasswordHash(String password, String storedHash) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 74
+   at PortAppointmentAPI.Services.AuthService.LoginAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 48
+   at PortAppointmentAPI.Controllers.AuthenticateController.Login(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 45
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:36:50.881 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 500 null text/plain; charset=utf-8 1688.7312ms
+2024-09-24 11:38:03.855 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:38:03.872 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:38:03.884 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:38:03.888 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:38:03.892 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:38:03.903 +05:30 [INF] Login process started for Username: sunil
+2024-09-24 11:38:03.960 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:38:03.969 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 70.8959ms
+2024-09-24 11:38:03.975 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:38:03.981 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+BCrypt.Net.SaltParseException: Invalid salt version
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at PortAppointmentAPI.Services.AuthService.VerifyPasswordHash(String password, String storedHash) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 74
+   at PortAppointmentAPI.Services.AuthService.LoginAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 48
+   at PortAppointmentAPI.Controllers.AuthenticateController.Login(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 45
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:38:04.013 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 500 null text/plain; charset=utf-8 157.1428ms
+2024-09-24 11:39:06.903 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:39:06.916 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:39:06.927 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:39:06.934 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:39:06.938 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:39:06.949 +05:30 [INF] Login process started for Username: sunil
+2024-09-24 11:39:07.072 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:39:07.079 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 135.3402ms
+2024-09-24 11:39:07.083 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:39:07.088 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+BCrypt.Net.SaltParseException: Invalid salt version
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at PortAppointmentAPI.Services.AuthService.VerifyPasswordHash(String password, String storedHash) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 74
+   at PortAppointmentAPI.Services.AuthService.LoginAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 48
+   at PortAppointmentAPI.Controllers.AuthenticateController.Login(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 45
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:39:07.117 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 500 null text/plain; charset=utf-8 214.2972ms
+2024-09-24 11:39:50.030 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:39:50.042 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:39:50.053 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:39:50.058 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:39:50.061 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:39:50.068 +05:30 [INF] Login process started for Username: sunil
+2024-09-24 11:39:50.075 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:39:50.081 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 14.4061ms
+2024-09-24 11:39:50.084 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:39:50.087 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+BCrypt.Net.SaltParseException: Invalid salt version
+   at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at BCrypt.Net.BCrypt.Verify(String text, String hash, Boolean enhancedEntropy, HashType hashType)
+   at PortAppointmentAPI.Services.AuthService.VerifyPasswordHash(String password, String storedHash) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 74
+   at PortAppointmentAPI.Services.AuthService.LoginAsync(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Services\AuthService.cs:line 48
+   at PortAppointmentAPI.Controllers.AuthenticateController.Login(UserLogin model) in C:\Users\SunilReddyDoddeti\Downloads\logging4net appointment system\logging4net appointment system\PortAppointmentAPI\Controllers\AuthenticateController.cs:line 45
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-09-24 11:39:50.099 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 500 null text/plain; charset=utf-8 68.3867ms
+2024-09-24 11:41:47.410 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - application/json 78
+2024-09-24 11:41:47.421 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:41:47.427 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:41:47.429 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:41:47.443 +05:30 [INF] Route matched with {action = "Register", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:41:47.450 +05:30 [INF] Register process started for Username: user123
+2024-09-24 11:41:47.491 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [UserLogin] AS [u]
+        WHERE [u].[Username] = @__model_Username_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-09-24 11:41:48.020 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [UserLogin] ([Password], [Role], [Username])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-09-24 11:41:48.062 +05:30 [INF] Registration completed successfully for Username: user123.
+2024-09-24 11:41:48.068 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-09-24 11:41:48.073 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI) in 625.6795ms
+2024-09-24 11:41:48.078 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Register (PortAppointmentAPI)'
+2024-09-24 11:41:48.081 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/register - 200 null text/plain; charset=utf-8 670.5505ms
+2024-09-24 11:41:54.656 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:41:54.667 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:41:54.679 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:41:54.683 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:41:54.686 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:41:54.695 +05:30 [INF] Login process started for Username: user123
+2024-09-24 11:41:54.700 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:41:54.920 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 11:41:54.925 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 11:41:54.936 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 241.5821ms
+2024-09-24 11:41:54.940 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:41:54.944 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 200 null application/json; charset=utf-8 288.3954ms
+2024-09-24 11:43:28.051 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 11:43:28.062 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 11:43:28.069 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-24 11:43:28.072 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:43:28.076 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 11:43:28.082 +05:30 [INF] Login process started for Username: user123
+2024-09-24 11:43:28.089 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 11:43:28.309 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 11:43:28.314 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 11:43:28.318 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 237.2315ms
+2024-09-24 11:43:28.323 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 11:43:28.325 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 200 null application/json; charset=utf-8 274.4779ms
+2024-09-24 11:43:52.233 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/user - application/json 78
+2024-09-24 11:43:52.259 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/user - 404 0 null 25.2272ms
+2024-09-24 11:43:52.269 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/user, Response status code: 404
+2024-09-24 11:44:31.007 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Appointment - application/json 78
+2024-09-24 11:44:31.025 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 11:44:31.047 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-24 11:44:31.055 +05:30 [INF] GetAppointments called.
+2024-09-24 11:44:31.276 +05:30 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-24 11:44:31.415 +05:30 [INF] GetAppointments completed successfully with 4 records.
+2024-09-24 11:44:31.419 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 11:44:31.484 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 431.8759ms
+2024-09-24 11:44:31.489 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 11:44:31.491 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Appointment - 200 null application/json; charset=utf-8 484.2525ms
+2024-09-24 11:44:43.544 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckCompany - application/json 78
+2024-09-24 11:44:43.553 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckCompany - 404 0 null 8.4293ms
+2024-09-24 11:44:43.562 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/TruckCompany, Response status code: 404
+2024-09-24 11:44:56.998 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckiCompanyng - application/json 78
+2024-09-24 11:44:57.006 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckiCompanyng - 404 0 null 7.945ms
+2024-09-24 11:44:57.015 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/TruckiCompanyng, Response status code: 404
+2024-09-24 11:45:04.127 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - application/json 78
+2024-09-24 11:45:04.139 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-09-24 11:45:04.151 +05:30 [INF] Route matched with {action = "GetTruckingCompanies", controller = "TruckingCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTruckingCompanies() on controller PortAppointmentAPI.Controllers.TruckingCompanyController (PortAppointmentAPI).
+2024-09-24 11:45:04.161 +05:30 [INF] Fetching all trucking companies.
+2024-09-24 11:45:04.184 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+2024-09-24 11:45:04.193 +05:30 [INF] Fetched 4 trucking companies.
+2024-09-24 11:45:04.197 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.TruckingCompany, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 11:45:04.204 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI) in 46.12ms
+2024-09-24 11:45:04.207 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-09-24 11:45:04.210 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - 200 null application/json; charset=utf-8 83.017ms
+2024-09-24 14:00:53.582 +05:30 [INF] User profile is available. Using 'C:\Users\SunilReddyDoddeti\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-24 14:00:53.701 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-24 14:00:53.704 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-24 14:00:53.706 +05:30 [INF] Hosting environment: Development
+2024-09-24 14:00:53.707 +05:30 [INF] Content root path: C:\Users\SunilReddyDoddeti\Downloads\AdventEModelProject\logging4net appointment system\logging4net appointment system\PortAppointmentAPI
+2024-09-24 14:01:06.332 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - application/json 78
+2024-09-24 14:01:06.353 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-24 14:01:06.444 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 07:13:28', Current time (UTC): '24-09-2024 08:31:06'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 14:01:06.460 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 07:13:28', Current time (UTC): '24-09-2024 08:31:06'.
+2024-09-24 14:01:06.467 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2024-09-24 14:01:06.475 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-24 14:01:06.482 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - 401 0 null 150.4237ms
+2024-09-24 14:01:42.565 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 14:01:42.573 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 07:13:28', Current time (UTC): '24-09-2024 08:31:42'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 14:01:42.577 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 07:13:28', Current time (UTC): '24-09-2024 08:31:42'.
+2024-09-24 14:01:42.581 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 14:01:42.605 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 14:01:42.729 +05:30 [INF] Login process started for Username: user123
+2024-09-24 14:01:46.547 +05:30 [INF] Executed DbCommand (27ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 14:01:46.931 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 14:01:46.935 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 14:01:46.947 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 4332.619ms
+2024-09-24 14:01:46.950 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 14:01:46.958 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 200 null application/json; charset=utf-8 4393.4607ms
+2024-09-24 14:02:03.983 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Authenticate - application/json 78
+2024-09-24 14:02:03.996 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Authenticate - 404 0 null 13.6572ms
+2024-09-24 14:02:04.001 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/Authenticate, Response status code: 404
+2024-09-24 14:02:13.572 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Appointment - application/json 78
+2024-09-24 14:02:13.578 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 14:02:13.581 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-24 14:02:13.586 +05:30 [INF] GetAppointments called.
+2024-09-24 14:02:13.711 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-24 14:02:13.776 +05:30 [INF] GetAppointments completed successfully with 4 records.
+2024-09-24 14:02:13.778 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 14:02:13.801 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 216.4013ms
+2024-09-24 14:02:13.802 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 14:02:13.805 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Appointment - 200 null application/json; charset=utf-8 233.2806ms
+2024-09-24 15:45:04.852 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckCompany - application/json 78
+2024-09-24 15:45:04.869 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:04'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 15:45:04.879 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:04'.
+2024-09-24 15:45:04.885 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckCompany - 404 0 null 32.2875ms
+2024-09-24 15:45:04.898 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5096/api/TruckCompany, Response status code: 404
+2024-09-24 15:45:26.012 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - application/json 78
+2024-09-24 15:45:26.021 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:26'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 15:45:26.032 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:26'.
+2024-09-24 15:45:26.053 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2024-09-24 15:45:26.058 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-24 15:45:26.063 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - 401 0 null 50.5444ms
+2024-09-24 15:45:57.332 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/user/login - application/json 78
+2024-09-24 15:45:57.342 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:57'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 15:45:57.351 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:15:57'.
+2024-09-24 15:45:57.356 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/user/login - 404 0 null 23.8914ms
+2024-09-24 15:45:57.366 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5096/api/user/login, Response status code: 404
+2024-09-24 15:47:31.303 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 15:47:31.313 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:17:31'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 15:47:31.321 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 09:31:46', Current time (UTC): '24-09-2024 10:17:31'.
+2024-09-24 15:47:31.325 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 15:47:31.329 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 15:47:31.342 +05:30 [INF] Login process started for Username: user123
+2024-09-24 15:47:34.739 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 15:47:35.115 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 15:47:35.119 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 15:47:35.124 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 3789.2653ms
+2024-09-24 15:47:35.128 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 15:47:35.130 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 200 null application/json; charset=utf-8 3827.0985ms
+2024-09-24 15:47:49.724 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/TruckingCompany - application/json 78
+2024-09-24 15:47:49.734 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.PostTruckingCompany (PortAppointmentAPI)'
+2024-09-24 15:47:49.749 +05:30 [INF] Route matched with {action = "PostTruckingCompany", controller = "TruckingCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostTruckingCompany(PortAppointmentAPI.Models.TruckingCompany) on controller PortAppointmentAPI.Controllers.TruckingCompanyController (PortAppointmentAPI).
+2024-09-24 15:47:49.767 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-09-24 15:47:49.809 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TruckingCompanyController.PostTruckingCompany (PortAppointmentAPI) in 52.8464ms
+2024-09-24 15:47:49.812 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.PostTruckingCompany (PortAppointmentAPI)'
+2024-09-24 15:47:49.815 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/TruckingCompany - 400 null application/problem+json; charset=utf-8 91.1613ms
+2024-09-24 15:47:55.501 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - application/json 78
+2024-09-24 15:47:55.510 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-09-24 15:47:55.519 +05:30 [INF] Route matched with {action = "GetTruckingCompanies", controller = "TruckingCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTruckingCompanies() on controller PortAppointmentAPI.Controllers.TruckingCompanyController (PortAppointmentAPI).
+2024-09-24 15:47:55.532 +05:30 [INF] Fetching all trucking companies.
+2024-09-24 15:47:55.572 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[DropType], [t].[Name]
+FROM [TruckingCompany] AS [t]
+2024-09-24 15:47:55.582 +05:30 [INF] Fetched 4 trucking companies.
+2024-09-24 15:47:55.587 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.TruckingCompany, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 15:47:55.593 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI) in 64.2778ms
+2024-09-24 15:47:55.598 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.TruckingCompanyController.GetTruckingCompanies (PortAppointmentAPI)'
+2024-09-24 15:47:55.601 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/TruckingCompany - 200 null application/json; charset=utf-8 99.3749ms
+2024-09-24 15:48:15.531 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Driver - application/json 78
+2024-09-24 15:48:15.541 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI)'
+2024-09-24 15:48:15.553 +05:30 [INF] Route matched with {action = "GetDrivers", controller = "Driver"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDrivers() on controller PortAppointmentAPI.Controllers.DriverController (PortAppointmentAPI).
+2024-09-24 15:48:15.576 +05:30 [INF] Fetching all drivers.
+2024-09-24 15:48:15.594 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber]
+FROM [Driver] AS [d]
+2024-09-24 15:48:15.603 +05:30 [INF] Fetched 8 drivers.
+2024-09-24 15:48:15.606 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Driver, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 15:48:15.611 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI) in 51.6714ms
+2024-09-24 15:48:15.615 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.DriverController.GetDrivers (PortAppointmentAPI)'
+2024-09-24 15:48:15.618 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Driver - 200 null application/json; charset=utf-8 86.6462ms
+2024-09-24 22:06:23.921 +05:30 [INF] User profile is available. Using 'C:\Users\SunilReddyDoddeti\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-24 22:06:24.050 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-24 22:06:24.053 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-24 22:06:24.055 +05:30 [INF] Hosting environment: Development
+2024-09-24 22:06:24.057 +05:30 [INF] Content root path: C:\Users\SunilReddyDoddeti\Downloads\AdventEModelProject\logging4net appointment system\logging4net appointment system\PortAppointmentAPI
+2024-09-24 23:24:12.332 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Driver - application/json 78
+2024-09-24 23:24:12.395 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-24 23:24:12.617 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:54:12'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 23:24:12.664 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:54:12'.
+2024-09-24 23:24:12.680 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2024-09-24 23:24:12.694 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-24 23:24:12.711 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Driver - 401 0 null 381.6401ms
+2024-09-24 23:24:28.267 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/user/login - application/json 78
+2024-09-24 23:24:28.300 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:54:28'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 23:24:28.309 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:54:28'.
+2024-09-24 23:24:28.314 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/user/login - 404 0 null 46.8819ms
+2024-09-24 23:24:28.324 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5096/api/user/login, Response status code: 404
+2024-09-24 23:25:01.953 +05:30 [INF] Application is shutting down...
+2024-09-24 23:25:05.932 +05:30 [INF] User profile is available. Using 'C:\Users\SunilReddyDoddeti\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-24 23:25:06.071 +05:30 [INF] Now listening on: http://localhost:5096
+2024-09-24 23:25:06.076 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-24 23:25:06.079 +05:30 [INF] Hosting environment: Development
+2024-09-24 23:25:06.083 +05:30 [INF] Content root path: C:\Users\SunilReddyDoddeti\Downloads\AdventEModelProject\logging4net appointment system\logging4net appointment system\PortAppointmentAPI
+2024-09-24 23:25:40.868 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - application/json 78
+2024-09-24 23:25:40.898 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-09-24 23:25:41.019 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:55:41'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-24 23:25:41.040 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '24-09-2024 11:17:35', Current time (UTC): '24-09-2024 17:55:41'.
+2024-09-24 23:25:41.062 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:25:41.109 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 23:25:41.445 +05:30 [INF] Login process started for Username: user123
+2024-09-24 23:25:46.416 +05:30 [INF] Executed DbCommand (45ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 23:25:46.943 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 23:25:46.966 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 23:25:46.990 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 5867.5142ms
+2024-09-24 23:25:46.998 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:25:47.017 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 200 null application/json; charset=utf-8 6148.6946ms
+2024-09-24 23:26:35.213 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/authenticate/login - application/json 78
+2024-09-24 23:26:35.247 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:26:35.252 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 23:26:35.265 +05:30 [INF] Login process started for Username: user123
+2024-09-24 23:26:35.319 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__model_Username_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [u].[Id], [u].[Password], [u].[Role], [u].[Username]
+FROM [UserLogin] AS [u]
+WHERE [u].[Username] = @__model_Username_0
+2024-09-24 23:26:35.700 +05:30 [INF] Login completed successfully for Username: user123.
+2024-09-24 23:26:35.705 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-09-24 23:26:35.710 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 449.9233ms
+2024-09-24 23:26:35.715 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:26:35.719 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/authenticate/login - 200 null application/json; charset=utf-8 505.9271ms
+2024-09-24 23:26:57.334 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Appointment - application/json 78
+2024-09-24 23:26:57.367 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:26:57.386 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-24 23:26:57.398 +05:30 [INF] GetAppointments called.
+2024-09-24 23:26:57.737 +05:30 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-24 23:26:57.870 +05:30 [INF] GetAppointments completed successfully with 4 records.
+2024-09-24 23:26:57.883 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 23:26:57.938 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 543.6077ms
+2024-09-24 23:26:57.942 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:26:57.946 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Appointment - 200 null application/json; charset=utf-8 611.9362ms
+2024-09-24 23:28:15.717 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Appointment - application/json 78
+2024-09-24 23:28:15.731 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:28:15.734 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-24 23:28:15.741 +05:30 [INF] GetAppointments called.
+2024-09-24 23:28:15.749 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-24 23:28:15.760 +05:30 [INF] GetAppointments completed successfully with 4 records.
+2024-09-24 23:28:15.765 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 23:28:15.770 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 29.3445ms
+2024-09-24 23:28:15.775 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:28:15.780 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Appointment - 200 null application/json; charset=utf-8 62.8973ms
+2024-09-24 23:28:32.130 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5096/api/Appointment - application/json 78
+2024-09-24 23:28:32.144 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:28:32.150 +05:30 [INF] Route matched with {action = "GetAppointments", controller = "Appointment"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAppointments() on controller PortAppointmentAPI.Controllers.AppointmentController (PortAppointmentAPI).
+2024-09-24 23:28:32.161 +05:30 [INF] GetAppointments called.
+2024-09-24 23:28:32.169 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[ContainerId], [a].[DriverId], [a].[Port], [a].[ShipId], [a].[TicketNumber], [a].[TruckingCompanyId], [a].[UserId], [d].[Id], [d].[DriverMobileNumber], [d].[LicenseNumber], [d].[VehicleNumber], [t].[Id], [t].[DropType], [t].[Name], [s].[Id], [s].[ShipNumber], [s].[TimeSlot], [c].[Id], [c].[ContainerNumber], [c].[Size], [c].[Type]
+FROM [Appointments] AS [a]
+INNER JOIN [Driver] AS [d] ON [a].[DriverId] = [d].[Id]
+INNER JOIN [TruckingCompany] AS [t] ON [a].[TruckingCompanyId] = [t].[Id]
+INNER JOIN [Ship] AS [s] ON [a].[ShipId] = [s].[Id]
+INNER JOIN [Container] AS [c] ON [a].[ContainerId] = [c].[Id]
+2024-09-24 23:28:32.180 +05:30 [INF] GetAppointments completed successfully with 4 records.
+2024-09-24 23:28:32.185 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[PortAppointmentAPI.Models.Appointment, PortAppointmentAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-09-24 23:28:32.191 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI) in 32.7984ms
+2024-09-24 23:28:32.196 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AppointmentController.GetAppointments (PortAppointmentAPI)'
+2024-09-24 23:28:32.201 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5096/api/Appointment - 200 null application/json; charset=utf-8 71.609ms
+2024-09-24 23:59:19.334 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - null null
+2024-09-24 23:59:19.339 +05:30 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2024-09-24 23:59:19.340 +05:30 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2024-09-24 23:59:19.342 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5096/api/authenticate/login - 405 0 null 7.4196ms
+2024-09-24 23:59:52.562 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - null 0
+2024-09-24 23:59:52.568 +05:30 [INF] Executing endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:59:52.569 +05:30 [INF] Route matched with {action = "Login", controller = "Authenticate"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(PortAppointmentAPI.Models.UserLogin) on controller PortAppointmentAPI.Controllers.AuthenticateController (PortAppointmentAPI).
+2024-09-24 23:59:52.587 +05:30 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2024-09-24 23:59:52.605 +05:30 [INF] Executed action PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI) in 33.5239ms
+2024-09-24 23:59:52.608 +05:30 [INF] Executed endpoint 'PortAppointmentAPI.Controllers.AuthenticateController.Login (PortAppointmentAPI)'
+2024-09-24 23:59:52.610 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5096/api/Authenticate/login - 415 null application/problem+json; charset=utf-8 48.2813ms

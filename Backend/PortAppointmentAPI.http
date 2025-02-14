@@ -1,0 +1,6 @@
+@PortAppointmentAPI_HostAddress = http://localhost:5096
+
+GET {{PortAppointmentAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

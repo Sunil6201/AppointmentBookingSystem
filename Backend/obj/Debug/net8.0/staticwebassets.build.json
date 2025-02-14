@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "seNkZUCGFriQ0dze4jj1LI7h6Bux+MdzLvfPBjrKcbI=",
+  "Source": "PortAppointmentAPI",
+  "BasePath": "_content/PortAppointmentAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
